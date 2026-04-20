@@ -1,5 +1,6 @@
 package it.uniroma3.siw.TorneiCalcio.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -7,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Squadra {
@@ -23,6 +26,12 @@ public class Squadra {
 	
 	@Column(nullable=false)
 	private Integer annoFondazione;
+	
+	@OneToMany
+	private List<Giocatore> giocatori;
+	
+	@ManyToMany
+	private List<Partita> partite;
 	
 //COSTRUTTORE
 	public Squadra() {

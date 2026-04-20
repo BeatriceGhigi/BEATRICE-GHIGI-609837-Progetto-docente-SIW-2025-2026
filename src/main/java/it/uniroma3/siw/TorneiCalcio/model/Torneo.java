@@ -1,5 +1,6 @@
 package it.uniroma3.siw.TorneiCalcio.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -7,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Torneo {
@@ -24,6 +27,11 @@ public class Torneo {
 	@Column(length=2000)
 	private String descrizione;
 
+	@ManyToMany
+	private List<Squadra> squadre;
+	
+	@OneToMany
+	private List<Partita> partite;
 		
 //COSTRUTTORE
 	

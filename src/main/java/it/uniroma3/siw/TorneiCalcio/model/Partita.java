@@ -2,6 +2,7 @@ package it.uniroma3.siw.TorneiCalcio.model;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -11,6 +12,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Partita {
@@ -34,6 +37,13 @@ public class Partita {
 		PLAYED,
 		CANCELED,	
 	}
+	
+	@ManyToOne
+	private Arbitro arbitro;
+	
+	@ManyToMany(mappedBy="partite")
+	private List<Squadra> squadre;
+	
 	
 //COSTRUTTORE
 	public Partita() {
