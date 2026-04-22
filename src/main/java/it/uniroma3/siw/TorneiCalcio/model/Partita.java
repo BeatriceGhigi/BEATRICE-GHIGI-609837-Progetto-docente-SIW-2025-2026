@@ -58,6 +58,16 @@ public class Partita {
 	}
 
 
+	public Long getId() {
+	return id;
+}
+
+
+   public void setId(Long id) {
+	this.id = id;
+   }
+
+
 	public void setProgrammazione(LocalDateTime programmazione) {
 		this.programmazione = programmazione;
 	}

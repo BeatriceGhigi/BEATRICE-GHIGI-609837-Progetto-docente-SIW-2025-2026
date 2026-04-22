@@ -20,6 +20,10 @@ public class TorneoService {
 		List<Torneo> torneoList= (List<Torneo>) this.torneoRepository.findAll();
 		return torneoList;
 	}
+
+	public Torneo findeById(Long id) {
+		return this.torneoRepository.findById(id).get();
+	}
 	
 	
 
