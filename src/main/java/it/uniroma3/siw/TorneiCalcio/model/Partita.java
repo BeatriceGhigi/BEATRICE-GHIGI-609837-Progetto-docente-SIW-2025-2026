@@ -14,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Partita {
@@ -22,13 +23,17 @@ public class Partita {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
+	@NotBlank
 	@Column(nullable=false)
 	private LocalDateTime programmazione;
 	
+	@NotBlank
 	private Integer goalsHome;
 	
+	@NotBlank
 	private Integer goalsAway;
 	
+	@NotBlank
 	@Enumerated(EnumType.STRING)
 	private OrderStatus stato; 
 

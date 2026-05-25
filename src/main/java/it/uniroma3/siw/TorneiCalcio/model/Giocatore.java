@@ -9,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 //import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Giocatore {
@@ -17,20 +19,23 @@ public class Giocatore {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
+	@NotBlank
 	@Column(nullable=false)
-	private String name;
+	private String nome;
 	
+	@NotBlank
 	@Column(nullable=false)
 	private String cognome;
 	
+	@NotBlank
 	@Column(nullable=false)
 	private LocalDate dataDiNascita;
 	
-	@Column(nullable=false)
+	@Column
 	private Integer altezza;
 	
-	//@OneToOne
-	//private Squadra squadra;
+	@ManyToOne
+	private Squadra squadra;
 	
 //COSTRUTTORE
 	public Giocatore() {
@@ -39,8 +44,18 @@ public class Giocatore {
 	
 //GET & SET
 
-	public String getName() {
-		return name;
+	
+	
+	public String getNome() {
+		return nome;
+	}
+
+	public Squadra getSquadra() {
+		return squadra;
+	}
+
+	public void setSquadra(Squadra squadra) {
+		this.squadra = squadra;
 	}
 
 	public Long getId() {
@@ -51,8 +66,8 @@ public class Giocatore {
 		this.id = id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getCognome() {

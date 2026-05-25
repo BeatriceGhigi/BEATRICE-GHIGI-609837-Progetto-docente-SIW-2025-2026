@@ -10,6 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Torneo {
@@ -18,9 +20,11 @@ public class Torneo {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
+	@NotBlank
 	@Column(nullable=false)
 	private String nome;
 	
+	@NotNull
 	@Column(nullable=false)
 	private Integer anno;
 	

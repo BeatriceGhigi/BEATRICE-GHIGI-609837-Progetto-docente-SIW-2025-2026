@@ -28,4 +28,10 @@ public class SquadraService {
 	public Squadra findById(Long id) {
 		return this.squadraRepository.findById(id).get();	
 	}
+	
+	@Transactional
+	public void save(Squadra squadra) {  //mi serve per poter salvare i dati presi dall form
+		this.squadraRepository.save(squadra);  // associato al metodo save in controller
+		
+	}
 }

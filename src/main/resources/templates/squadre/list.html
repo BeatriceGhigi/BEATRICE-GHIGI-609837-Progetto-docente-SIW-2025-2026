@@ -12,9 +12,13 @@
 		<div>
 			<ul>
 				<li th:each="squadra: ${squadre}">
-					<a th:href="@{'/squadre'+ ${squadra.id}}" th:text="${squadra.nome}"> Nome</a>
+					<a th:href="@{'/squadre/'+ ${squadra.id}}" th:text="${squadra.nome}"> Nome</a>
 				</li>
 			</ul>
 		</div>
+		
+		<h2>
+				<a href="squadre/new">Inserisci una nuova squadra</a>
+			</h2>
 	</body>
 </html>

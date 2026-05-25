@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import it.uniroma3.siw.TorneiCalcio.model.Torneo;
 import it.uniroma3.siw.TorneiCalcio.repository.TorneoRepository;
 
@@ -28,6 +29,9 @@ public class TorneoService {
 		return this.torneoRepository.findById(id).get();
 	}
 	
-	
- 
+
+	public void save(Torneo torneo) {  //mi serve per poter salvare i dati presi dall form
+		this.torneoRepository.save(torneo);  // associato al metodo save in controller
+		
+	}
 }

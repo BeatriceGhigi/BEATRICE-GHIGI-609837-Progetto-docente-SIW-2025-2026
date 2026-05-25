@@ -27,7 +27,7 @@ public class GiocatoreService {
 	}
 	
 	@Transactional(readOnly=true)
-	public Giocatore findeById(Long id) {
+	public Giocatore findById(Long id) {
 		return this.giocatoreRepository.findById(id).get();	
 	}
 	

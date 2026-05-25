@@ -4,3 +4,8 @@ insert into torneo(id, nome, anno, descrizione) values(nextval('torneo_seq'), 'i
 insert into squadra(id, nome, città, anno_fondazione) values(nextval('squadra_seq'), 'Roma', 'Roma', 1927);
 insert into squadra(id, nome, città, anno_fondazione) values(nextval('squadra_seq'), 'Lazio', 'Roma', 1900);
 insert into squadra(id, nome, città, anno_fondazione) values(nextval('squadra_seq'), 'Inter', 'Milano', 1908);
+insert into giocatore(id, nome, cognome, data_di_nascita, altezza) values(nextval('giocatore_seq'), 'Giuseppe', 'Bianchi', '2000-04-22', 175);
+insert into giocatore(id, nome, cognome, data_di_nascita, altezza) values(nextval('giocatore_seq'), 'Marco', 'Rossi', '1998-11-15', 182);
+insert into giocatore(id, nome, cognome, data_di_nascita, altezza) values(nextval('giocatore_seq'), 'Alessandro', 'Verdi', '2002-07-03', 190);
+insert into giocatore(id, nome, cognome, data_di_nascita, altezza) values(nextval('giocatore_seq'), 'Luca', 'Ferrari', '2001-01-29', 178);
+insert into giocatore(id, nome, cognome, data_di_nascita, altezza) values(nextval('giocatore_seq'), 'Davide', 'Russo', '1999-05-12', 185);

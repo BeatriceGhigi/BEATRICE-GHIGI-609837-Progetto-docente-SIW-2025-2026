@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Inserisci una squadra</title>
+</head>
+
+<body>
+	<form method="POST" th:action="@{/squadre}" th:object="${squadra}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			  <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"> </p> 
+			  </div>
+		<div>
+			Nome: <input type="text" th:field="${squadra.nome}"/>
+			<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+		</div>
+		<div>
+			Città: <input type="text" th:field="${squadra.città}" />
+		</div>
+		<div>
+			Anno di Fondazione: <input type="text" th:field="${squadra.annoFondazione}" />
+		</div>
+		<div>
+			<button type="submit"> conferma </button>
+		</div>
+
+	</form>
+	</h1>
+</body>
+
+</html>
