@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+
+		Squadre
+	</title>
+</head>	
+	<body>
+	<h1>Lista squadre</h1>
+		<div>
+			<ul>
+				<li th:each="squadra: ${squadre}">
+					<a th:href="@{'/squadre'+ ${squadra.id}}" th:text="${squadra.nome}"> Nome</a>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>

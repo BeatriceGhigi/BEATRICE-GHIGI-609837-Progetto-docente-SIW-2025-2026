@@ -3,9 +3,11 @@ package it.uniroma3.siw.TorneiCalcio.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.TorneiCalcio.model.Giocatore;
 import it.uniroma3.siw.TorneiCalcio.repository.GiocatoreRepository;
+
 
 @Service
 public class GiocatoreService {
@@ -16,11 +18,17 @@ public class GiocatoreService {
 		this.giocatoreRepository = giocatoreRepository;
 	}
 	
+	@Transactional(readOnly=true)
 	public List<Giocatore> findAll(){
 
 		List<Giocatore> giocatoreList=(List<Giocatore>) this.giocatoreRepository.findAll();
 		return giocatoreList;
 		
+	}
+	
+	@Transactional(readOnly=true)
+	public Giocatore findeById(Long id) {
+		return this.giocatoreRepository.findById(id).get();	
 	}
 	
 }

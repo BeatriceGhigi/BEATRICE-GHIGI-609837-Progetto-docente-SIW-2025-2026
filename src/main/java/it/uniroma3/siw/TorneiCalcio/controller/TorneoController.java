@@ -26,7 +26,7 @@ public class TorneoController {
 	@GetMapping("/tornei/{id}")   /*questa richiesta è associata ad un metodo get fatto in questo modo */
     public String show(@PathVariable("id") Long id, Model model) {
 	
-		Torneo torneo= this.torneoService.findeById(id);
+		Torneo torneo= this.torneoService.findById(id);
 		model.addAttribute("torneo", torneo); //metto a disposizione del componente che genera l'html, il componente che mette a disposizione l'html puù generare quest'oggetto
 	                                       //attraverso quetso nome qua
        return "tornei/show";
