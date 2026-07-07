@@ -75,7 +75,7 @@ public class Credentials {
 		this.user = user;
 	}
 
-	public static String getDefaultRole() {
+	public static String getUserRole() {
 		return DEFAULT_ROLE;
 	}
 
