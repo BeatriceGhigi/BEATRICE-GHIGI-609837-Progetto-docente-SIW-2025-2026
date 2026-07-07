@@ -12,9 +12,9 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotBlank;
+import  jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Partita {
@@ -23,17 +23,17 @@ public class Partita {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	@NotBlank
+	@NotNull
 	@Column(nullable=false)
 	private LocalDateTime programmazione;
 	
-	@NotBlank
+	@NotNull
 	private Integer goalsHome;
 	
-	@NotBlank
+	@NotNull
 	private Integer goalsAway;
 	
-	@NotBlank
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private OrderStatus stato; 
 
@@ -46,9 +46,17 @@ public class Partita {
 	@ManyToOne
 	private Arbitro arbitro;
 	
-	@ManyToMany(mappedBy="partite")
-	private List<Squadra> squadre;
+	@ManyToOne
+	private Squadra squadraCasa;
 	
+	@ManyToOne
+	private Squadra squadraOspite;
+	
+	@ManyToOne
+	private Torneo torneo;
+	
+	@OneToMany(mappedBy="partita")
+	private List<Commento> commenti;
 	
 //COSTRUTTORE
 	public Partita() {
@@ -105,7 +113,58 @@ public class Partita {
 	}
 
 	
-//EQUALS & HASHCODE
+public Arbitro getArbitro() {
+		return arbitro;
+	}
+
+
+	public void setArbitro(Arbitro arbitro) {
+		this.arbitro = arbitro;
+	}
+
+
+	public Squadra getSquadraCasa() {
+		return squadraCasa;
+	}
+
+
+	public void setSquadraCasa(Squadra squadraCasa) {
+		this.squadraCasa = squadraCasa;
+	}
+
+
+	public Squadra getSquadraOspite() {
+		return squadraOspite;
+	}
+
+
+	public void setSquadraOspite(Squadra squadraOspite) {
+		this.squadraOspite = squadraOspite;
+	}
+
+
+	public Torneo getTorneo() {
+		return torneo;
+	}
+
+
+	public void setTorneo(Torneo torneo) {
+		this.torneo = torneo;
+	}
+
+	
+
+	public List<Commento> getCommenti() {
+		return commenti;
+	}
+
+
+	public void setCommenti(List<Commento> commenti) {
+		this.commenti = commenti;
+	}
+
+
+	//EQUALS & HASHCODE
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Squadra {
@@ -23,17 +24,19 @@ public class Squadra {
 	@Column(nullable=false)
 	private String nome;
 	
+	@NotBlank
 	@Column(nullable=false)
 	private String città;
 	
+	@NotNull
 	@Column(nullable=false)
 	private Integer annoFondazione;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "squadra")
 	private List<Giocatore> giocatori;
 	
-	@ManyToMany
-	private List<Partita> partite;
+	@ManyToMany(mappedBy = "squadre") 
+	private List<Torneo> tornei;
 	
 //COSTRUTTORE
 	public Squadra() {
@@ -83,8 +86,29 @@ public class Squadra {
 		this.annoFondazione = annoFondazione;
 	}
 
+	
 
-//EQAULS & HASHCODE
+public List<Giocatore> getGiocatori() {
+		return giocatori;
+	}
+
+
+	public void setGiocatori(List<Giocatore> giocatori) {
+		this.giocatori = giocatori;
+	}
+
+
+	public List<Torneo> getTornei() {
+		return tornei;
+	}
+
+
+	public void setTornei(List<Torneo> tornei) {
+		this.tornei = tornei;
+	}
+
+
+	//EQAULS & HASHCODE
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

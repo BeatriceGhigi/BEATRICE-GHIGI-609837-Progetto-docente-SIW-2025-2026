@@ -69,6 +69,8 @@ public class Arbitro {
 	public void setCodiceArbitrale(Integer codiceArbitrale) {
 		this.codiceArbitrale = codiceArbitrale;
 	}
+	
+	
 
 	
 //EQUALS & HASHCODE

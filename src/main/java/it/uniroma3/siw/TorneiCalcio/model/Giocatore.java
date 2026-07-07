@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 //import jakarta.persistence.OneToOne;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Giocatore {
@@ -27,12 +28,16 @@ public class Giocatore {
 	@Column(nullable=false)
 	private String cognome;
 	
-	@NotBlank
+	@NotNull
 	@Column(nullable=false)
 	private LocalDate dataDiNascita;
 	
 	@Column
 	private Integer altezza;
+	
+	@NotBlank
+	@Column(nullable=false)
+	private String ruolo;
 	
 	@ManyToOne
 	private Squadra squadra;
@@ -96,7 +101,15 @@ public class Giocatore {
 
 	
 	
-//HASHCODE & EQUALS
+public String getRuolo() {
+		return ruolo;
+	}
+
+	public void setRuolo(String ruolo) {
+		this.ruolo = ruolo;
+	}
+
+	//HASHCODE & EQUALS
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

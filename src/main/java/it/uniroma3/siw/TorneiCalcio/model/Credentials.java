@@ -1,59 +1,51 @@
 package it.uniroma3.siw.TorneiCalcio.model;
 
-import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.OneToOne;
 
-@Entity
-public class Utente {
+@Entity 
+public class Credentials {
 	
+		
+	public static final String DEFAULT_ROLE = "DEFAULT";
+	public static final String ADMIN_ROLE = "ADMIN";
+		
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@NotBlank
-	@Column(nullable=false, unique=true)
+	@Column(nullable = false, unique = true)
 	private String username;
-	
-	@NotBlank
-	@Column(nullable=false)
+	@Column(nullable = false, unique = false)
 	private String password;
-	
-	@NotBlank
-	@Column(nullable=false)
-	private String ruolo;
-	
-	@OneToMany(mappedBy="autore")
-	private List<Commento> commenti;
+	private String role;
 
-//COSTRUTTORE
-	public Utente() {
+	@OneToOne(cascade = CascadeType.ALL)
+	private Utente user;
+
+	//COSTRUTTORE
+	public Credentials() {
 		super();
 	}
 
-	
-//GET & SET
-	
-	public String getUsername() {
-		return username;
-	}
-
+	//GET & SET
 	public Long getId() {
 		return id;
 	}
-
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	public String getUsername() {
+		return username;
+	}
 
 	public void setUsername(String username) {
 		this.username = username;
@@ -67,22 +59,28 @@ public class Utente {
 		this.password = password;
 	}
 
-	public String getRuolo() {
-		return ruolo;
+	public String getRole() {
+		return role;
 	}
 
-	public void setRuolo(String ruolo) {
-		this.ruolo = ruolo;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
-	
-public List<Commento> getCommenti() {
-		return commenti;
+	public Utente getUser() {
+		return user;
 	}
 
+	public void setUser(Utente user) {
+		this.user = user;
+	}
 
-	public void setCommenti(List<Commento> commenti) {
-		this.commenti = commenti;
+	public static String getDefaultRole() {
+		return DEFAULT_ROLE;
+	}
+
+	public static String getAdminRole() {
+		return ADMIN_ROLE;
 	}
 
 
@@ -100,12 +98,13 @@ public List<Commento> getCommenti() {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Utente other = (Utente) obj;
+		Credentials other = (Credentials) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
-	
-	
 
-}
+
+
+
+	}
+
+
