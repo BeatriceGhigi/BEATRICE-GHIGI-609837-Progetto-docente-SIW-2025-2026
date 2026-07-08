@@ -27,9 +27,9 @@ public class SecurityConfiguration {
 	    public UserDetailsService userDetailsService() {
 	        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
 	        manager.setUsersByUsernameQuery(
-	            "SELECT username, password, 1 as enabled FROM credentials WHERE username=?");
+	            "SELECT username, password, 1 as enabled FROM utente WHERE username=?");
 	        manager.setAuthoritiesByUsernameQuery(
-	            "SELECT username, role FROM credentials WHERE username=?");
+	            "SELECT username, 'ROLE_' || ruolo FROM utente WHERE username=?");
 	        return manager;
 	    }
 
