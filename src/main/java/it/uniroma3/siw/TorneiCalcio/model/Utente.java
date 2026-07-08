@@ -14,6 +14,9 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 public class Utente {
 	
+	public static final String USER_ROLE = "USER";
+	public static final String ADMIN_ROLE = "ADMIN";
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
@@ -83,6 +86,16 @@ public List<Commento> getCommenti() {
 
 	public void setCommenti(List<Commento> commenti) {
 		this.commenti = commenti;
+	}
+	
+	
+	public static String getUserRole() {
+		return USER_ROLE;
+	}
+
+
+	public static String getAdminRole() {
+		return ADMIN_ROLE;
 	}
 
 

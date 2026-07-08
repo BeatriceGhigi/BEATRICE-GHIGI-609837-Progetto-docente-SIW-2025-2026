@@ -35,9 +35,9 @@ public class Partita {
 	
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	private OrderStatus stato; 
+	private StatusPartita stato; 
 
-	public enum OrderStatus{
+	public enum StatusPartita{
 		SCHEDULED,
 		PLAYED,
 		CANCELED,	
@@ -86,12 +86,12 @@ public class Partita {
 	}
 
 
-	public OrderStatus getStato() {
+	public StatusPartita getStato() {
 		return stato;
 	}
 
 
-	public void setStato(OrderStatus stato) {
+	public void setStato(StatusPartita stato) {
 		this.stato = stato;
 	}
 

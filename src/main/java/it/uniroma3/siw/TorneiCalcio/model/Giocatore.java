@@ -5,6 +5,8 @@ import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,9 +37,16 @@ public class Giocatore {
 	@Column
 	private Integer altezza;
 	
-	@NotBlank
-	@Column(nullable=false)
-	private String ruolo;
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private Ruolo ruolo;
+	
+	public enum Ruolo{
+		PORTIERE,
+		DIFENSORE,
+		CENTROCAMPISTA,
+		ATTACCANTE,
+	}
 	
 	@ManyToOne
 	private Squadra squadra;
@@ -99,13 +108,12 @@ public class Giocatore {
 		this.altezza = altezza;
 	}
 
-	
-	
-public String getRuolo() {
+
+	public Ruolo getRuolo() {
 		return ruolo;
 	}
 
-	public void setRuolo(String ruolo) {
+	public void setRuolo(Ruolo ruolo) {
 		this.ruolo = ruolo;
 	}
 

@@ -1,6 +1,6 @@
 package it.uniroma3.siw.TorneiCalcio.authentication;
 
-import static it.uniroma3.siw.TorneiCalcio.model.Credentials.ADMIN_ROLE;
+import static it.uniroma3.siw.TorneiCalcio.model.Utente.ADMIN_ROLE;
 import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,7 +42,7 @@ public class SecurityConfiguration {
 	    protected SecurityFilterChain configure(final HttpSecurity httpSecurity) throws Exception {
 
 	        httpSecurity.authorizeHttpRequests(authorize -> {
-	            authorize.requestMatchers(HttpMethod.GET, "/", "/index", "/register", "/movies", "/movies/**", "/css/**", "/images/**", "/favicon.ico").permitAll();
+	            authorize.requestMatchers(HttpMethod.GET, "/", "/index", "/register", "/tornei", "/tornei/**", "/css/**", "/images/**", "/favicon.ico").permitAll();
 	            authorize.requestMatchers(HttpMethod.POST, "/register", "/login").permitAll();
 	            authorize.requestMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(ADMIN_ROLE);
 	            authorize.requestMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority(ADMIN_ROLE);

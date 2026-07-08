@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Arbitro {
@@ -24,7 +25,7 @@ public class Arbitro {
 	@Column(nullable=false)
 	private String cognome;
 	
-	@NotBlank
+	@NotNull
 	@Column(nullable=false, unique=true)
 	private Integer codiceArbitrale;
 

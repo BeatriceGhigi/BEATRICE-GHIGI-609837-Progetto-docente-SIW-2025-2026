@@ -1,6 +1,7 @@
 package it.uniroma3.siw.TorneiCalcio.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +27,7 @@ public class SquadraController {
 	@GetMapping("/squadre/{id}")
 	public String show(@PathVariable("id") Long id, Model model) {
 		
-		Squadra squadra= this.squadraService.findById(id);
+		Optional<Squadra> squadra= this.squadraService.findById(id);
 		model.addAttribute("squadra", squadra); //metto a disposizione del componente che genera l'html, il componente che mette a disposizione l'html puù generare quest'oggetto
 	                                       //attraverso quetso nome qua
        return "squadre/show";

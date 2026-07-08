@@ -1,6 +1,7 @@
 package it.uniroma3.siw.TorneiCalcio.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +26,8 @@ public class SquadraService {
 	}
 
 	@Transactional(readOnly=true)
-	public Squadra findById(Long id) {
-		return this.squadraRepository.findById(id).get();	
+	public Optional<Squadra> findById(Long id) {
+		return this.squadraRepository.findById(id);	
 	}
 	
 	@Transactional

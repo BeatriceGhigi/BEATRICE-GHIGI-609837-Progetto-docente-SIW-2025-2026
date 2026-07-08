@@ -1,6 +1,7 @@
 package it.uniroma3.siw.TorneiCalcio.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,13 +26,13 @@ public class TorneoService {
 	}
 
 	@Transactional(readOnly=true)
-	public Torneo findById(Long id) {
-		return this.torneoRepository.findById(id).get();
+	public Optional<Torneo> findById(Long id) {
+		return this.torneoRepository.findById(id);
 	}
 	
-
-	public void save(Torneo torneo) {  //mi serve per poter salvare i dati presi dall form
-		this.torneoRepository.save(torneo);  // associato al metodo save in controller
+@Transactional
+	public void save(Torneo torneo) {  
+		this.torneoRepository.save(torneo);  
 		
 	}
 }

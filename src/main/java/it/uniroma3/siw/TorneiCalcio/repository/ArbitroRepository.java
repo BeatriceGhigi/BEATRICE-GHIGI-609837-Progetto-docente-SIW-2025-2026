@@ -8,4 +8,6 @@ import it.uniroma3.siw.TorneiCalcio.model.Arbitro;
 
 public interface ArbitroRepository extends JpaRepository<Arbitro,Long>{
 
+	 Arbitro findByCodiceArbitrale(Integer codiceArbitrale);
+	
 }
