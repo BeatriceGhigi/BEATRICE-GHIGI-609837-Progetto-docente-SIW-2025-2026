@@ -37,3 +37,4 @@ insert into torneo_squadra(torneo_id, squadra_id) values(101, 1);
 insert into torneo_squadra(torneo_id, squadra_id) values(101, 51);
 insert into torneo_squadra(torneo_id, squadra_id) values(101, 201);
 insert into torneo_squadra(torneo_id, squadra_id) values(101, 251);
+insert into utente(id,username,password,ruolo) values(nextval('utente_seq'), 'bea', '$2a$10$7R9Mv6N8k3T9xGfL2B8uOe7A5v1M3sQ8zK6xYn9wP2bC5mR1gHqGi', 'ADMIN');
