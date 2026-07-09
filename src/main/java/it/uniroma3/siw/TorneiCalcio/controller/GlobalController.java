@@ -14,17 +14,13 @@ public class GlobalController {
     public UserDetails getUtente() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         
-        // Controllo di sicurezza: verifichiamo che l'autenticazione esista, sia valida e non anonima
-        if (authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
+        // Verifichiamo esplicitamente che l'utente NON sia un utente anonimo temporaneo
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             Object principal = authentication.getPrincipal();
-            
-            // CRITICO: Eseguiamo il cast a UserDetails SOLO se il principal è effettivamente un'istanza corretta
             if (principal instanceof UserDetails) {
                 return (UserDetails) principal;
             }
         }
-        
-        // Se non c'è nessuno loggato o la sessione è invalida, restituisce null senza spaccare la pagina
         return null;
     }
 }

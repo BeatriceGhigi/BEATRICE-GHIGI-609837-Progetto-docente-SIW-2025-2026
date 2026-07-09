@@ -50,16 +50,16 @@ public class TorneoController {
 		return "tornei/list";
 	}
 	
-	@GetMapping("/tornei/new") // metodo che ritorna la form
+	@GetMapping("/admin/tornei/new") // metodo che ritorna la form
 	public String createForm(Model model) {
 		Torneo torneo= new Torneo();
 		torneo.setSquadre(new ArrayList<>());
 		model.addAttribute("torneo", torneo);
 		model.addAttribute("squadre", squadraService.findAll());
-		return "tornei/form";
+		return "admin/tornei/form";
 	}
 
-	@PostMapping("/tornei")  //mi salva i dati presi dalla form
+	@PostMapping("/admin/tornei")  //mi salva i dati presi dalla form
 	public String save(@Valid @ModelAttribute("torneo") Torneo torneo, 
 			 BindingResult bindingResult, Model model,
 		        @RequestParam(required = false) String action,
@@ -85,16 +85,29 @@ public class TorneoController {
 		            }
 		        }
 		        model.addAttribute("squadre", squadraService.findAll());
-		        return "tornei/form";
+		        return "admin/tornei/form";
 		    }
 
 		    if (bindingResult.hasErrors()) {
 		        model.addAttribute("squadre", squadraService.findAll());
-		        return "tornei/form";
+		        return "admin/tornei/form";
 		    }
 
 		    this.torneoService.save(torneo);
 		    return "redirect:/tornei";
 	}
+	@GetMapping("/admin/tornei/{id}/edit")
+    public String editForm(@PathVariable Long id, Model model) {
+        Optional<Torneo> optional = torneoService.findById(id);
+        if (optional.isEmpty()) {
+            return "redirect:/tornei";
+        }
+        Torneo torneo = optional.get();
+        if (torneo.getSquadre() == null) torneo.setSquadre(new ArrayList<>());
+        model.addAttribute("torneo", torneo);
+        model.addAttribute("squadre", squadraService.findAll());
+        return "admin/tornei/form";
+    }
+
 			}
 

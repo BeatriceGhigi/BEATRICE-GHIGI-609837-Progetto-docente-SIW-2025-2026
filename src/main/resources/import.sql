@@ -38,4 +38,4 @@ insert into torneo_squadra(torneo_id, squadra_id) values(101, 51);
 insert into torneo_squadra(torneo_id, squadra_id) values(101, 201);
 insert into torneo_squadra(torneo_id, squadra_id) values(101, 251);
 insert into partita(id, programmazione, goals_home, goals_away, stato, squadra_casa_id, squadra_ospite_id, torneo_id, arbitro_id) values(nextval('partita_seq'), '2025-04-05 16:00:00', 1, 1, 'PLAYED', 1, 101, 1, null);
-insert into utente (id, username, password, ruolo) values (1000, 'admin', '$2a$10$hKDVYxLefV6YrcenwNuMSeBfbeu7KAnL.O77N.b.b3B6Z8jsh6m6u', 'ADMIN');
+insert into utente (id, username, password, ruolo) values (5000, 'admin', '$2a$10$RUm5rJJQlRTyBNXW/DzT9u0BnmGZj4mHHUtamRdwG2OvUEMwJuRo2', 'ADMIN');

@@ -7,7 +7,8 @@
 
 <body>
 	<h1>Aggiungi torneo</h1>
-	<form th:action="@{/tornei}" method="POST" th:object="${torneo}">
+	<form th:action="@{/admin/tornei}" method="POST" th:object="${torneo}">
+		<input type="hidden" th:field="*{id}" />
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
 		</div>
