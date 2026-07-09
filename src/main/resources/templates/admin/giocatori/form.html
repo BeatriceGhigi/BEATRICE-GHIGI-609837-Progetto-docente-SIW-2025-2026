@@ -10,7 +10,7 @@
 
 	<h1>Aggiungi nuovo giocatore</h1>
 
-	<form method="POST" th:action="@{/giocatori}" th:object="${giocatore}">
+	<form method="POST" th:action="@{/admin/giocatori}" th:object="${giocatore}">
 
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}" style="color: red;"></p>

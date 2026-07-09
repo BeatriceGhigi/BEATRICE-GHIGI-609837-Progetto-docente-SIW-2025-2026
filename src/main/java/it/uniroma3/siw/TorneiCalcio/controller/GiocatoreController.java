@@ -1,6 +1,7 @@
 package it.uniroma3.siw.TorneiCalcio.controller;
 
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -48,16 +49,16 @@ public class GiocatoreController {
 		return "giocatori/list";
 	}
 	
-	@GetMapping("/giocatori/new") // metodo che ritorna la form
+	@GetMapping("/admin/giocatori/new") // metodo che ritorna la form
 	public String createForm(Model model) {
 		Giocatore giocatore= new Giocatore();
 		model.addAttribute("giocatore", giocatore);
 		model.addAttribute("ruoliDisponibili", Giocatore.Ruolo.values());
 		model.addAttribute("squadre", squadraService.findAll());
-		return "giocatori/form";
+		return "admin/giocatori/form";
 	}
 	
-	@PostMapping("/giocatori") // Salva i dati presi dalla form del giocatore
+	@PostMapping("/admin/giocatori") // Salva i dati presi dalla form del giocatore
 	public String save(@Valid @ModelAttribute("giocatore") Giocatore giocatore, 
 	                   BindingResult bindingResult, 
 	                   Model model) {
@@ -65,9 +66,22 @@ public class GiocatoreController {
 	    if (bindingResult.hasErrors()) {
 	        model.addAttribute("ruoliDisponibili", Giocatore.Ruolo.values());
 	        model.addAttribute("squadreTotali", this.squadraService.findAll());
-	        return "giocatori/form"; 	    }
+	        return "admin/giocatori/form"; 	    }
 	    
 	    this.giocatoreService.save(giocatore);
 	    return "redirect:/giocatori";
 	}
+	
+	@GetMapping("/admin/giocatori/{id}/edit")
+    public String editForm(@PathVariable Long id, Model model) {
+        Optional<Giocatore> optional = giocatoreService.findById(id);
+        if (optional.isEmpty()) {
+            return "redirect:/giocatori";
+        }
+        Giocatore giocatore = optional.get();
+        model.addAttribute("giocatore", giocatore);
+		model.addAttribute("ruoliDisponibili", Giocatore.Ruolo.values()); 
+		model.addAttribute("squadre", squadraService.findAll());          
+		return "admin/giocatori/form";
+    }
 }
