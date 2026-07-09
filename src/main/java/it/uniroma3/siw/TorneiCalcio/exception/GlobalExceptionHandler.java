@@ -13,7 +13,7 @@ public class GlobalExceptionHandler {
 	    @ResponseStatus(HttpStatus.NOT_FOUND)
 	    public String handleNoResourceFound(NoResourceFoundException e, Model model) {
 	        model.addAttribute("errorMessage", "Pagina non trovata");
-	        return "errors/404";
+	        return "error/404";
 	    }
 
 
@@ -21,6 +21,6 @@ public class GlobalExceptionHandler {
 	    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	    public String handleGenericException(Exception e, Model model) {
 	        model.addAttribute("errorMessage", "Si è verificato un errore interno.");
-	        return "errors/500";
+	        return "error/500";
 	    }
 }

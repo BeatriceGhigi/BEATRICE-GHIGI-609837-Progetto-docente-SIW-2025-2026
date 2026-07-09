@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Giocatori</title>
+</head>
+
+<body>
+	<h1 th:text="${giocatore.nome} + ' ' + ${giocatore.cognome}">Nome giocatore</h1>
+	<div> Data di nascita: <span th:text="${giocatore.dataDiNascita}"> 1990</span>
+	</div>
+	 <div>
+		Altezza: <span th:text="${giocatore.altezza}"> altezza </span>
+	</div>
+	<div>
+		Ruolo: <span th:text="${giocatore.ruolo}"> ruolo </span>
+	</div>
+	<a th:href="@{/squadre/{id}(id=${giocatore.squadra.id})}">Torna alla squadra</a>
+</body>
+
+</html>

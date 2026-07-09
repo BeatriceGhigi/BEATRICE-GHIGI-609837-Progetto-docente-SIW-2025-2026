@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+
+		Giocatori
+	</title>
+</head>	
+	<body>
+	<h1>Lista giocatori</h1>
+		<div>
+			<ul>
+				<li th:each="giocatore: ${giocatori}">
+					<a th:href="@{'/giocatori/'+ ${giocatore.id}}" th:text="${giocatore.nome} + '' + ${giocatore.cognome}"> Nome</a>
+				</li>
+			</ul>
+		</div>
+		<a th:href="@{/}">Home</a>
+	</body>
+</html>

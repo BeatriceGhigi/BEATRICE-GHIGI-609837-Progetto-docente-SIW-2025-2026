@@ -3,12 +3,22 @@
 <head>
 	<title>Tornei</title>
 </head>
-	<body><h1>
+	<body><h2>
 		<a href="/tornei">Lista tornei </a>
-	</h1>
+	</h2>
 	<h2> 
 		<a href="/squadre"> Lista squadre</a>
 	</h2>
+	<h2>
+		    <a th:href="@{/tornei/new}">Inserisci un nuovo torneo</a>
+		</h2>
+		<h2>
+						<a th:href="@{squadre/new}">Inserisci una nuova squadra</a>
+					</h2>
+					<h2> 
+						<a href="/giocatori"> Lista giocatori</a>
+					</h2>
+
 	</body>
 
 </html>

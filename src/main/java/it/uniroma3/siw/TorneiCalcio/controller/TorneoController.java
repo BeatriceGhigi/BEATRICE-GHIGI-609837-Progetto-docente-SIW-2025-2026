@@ -1,5 +1,6 @@
 package it.uniroma3.siw.TorneiCalcio.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,27 +11,35 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-
+import it.uniroma3.siw.TorneiCalcio.model.Squadra;
 import it.uniroma3.siw.TorneiCalcio.model.Torneo;
+import it.uniroma3.siw.TorneiCalcio.service.SquadraService;
 import it.uniroma3.siw.TorneiCalcio.service.TorneoService;
 import jakarta.validation.Valid;
 
 @Controller
 public class TorneoController {
 
+	private SquadraService squadraService;
 	private TorneoService torneoService;
 
-	public TorneoController(TorneoService torneoService) {
+	public TorneoController(TorneoService torneoService,SquadraService squadraService) {
 		this.torneoService = torneoService;
+		this.squadraService= squadraService;
 	}
+	
+	
 	
 	@GetMapping("/tornei/{id}")
 	public String show(@PathVariable("id") Long id, Model model) {
 		
 		Optional<Torneo> torneo= this.torneoService.findById(id);
-		model.addAttribute("torneo", torneo); //metto a disposizione del componente che genera l'html, il componente che mette a disposizione l'html puù generare quest'oggetto
-	                                       //attraverso quetso nome qua
+		if(torneo.isEmpty()) {
+			return "redirect:/tornei";//metto a disposizione del componente che genera l'html, il componente che mette a disposizione l'html puù generare quest'oggetto
+		}
+	       model.addAttribute("torneo", torneo.get());                          //attraverso quetso nome qua
        return "tornei/show";
 	}
 	
@@ -42,22 +51,50 @@ public class TorneoController {
 	}
 	
 	@GetMapping("/tornei/new") // metodo che ritorna la form
-	public String form(Model model) {
-		model.addAttribute("torneo", new Torneo());
+	public String createForm(Model model) {
+		Torneo torneo= new Torneo();
+		torneo.setSquadre(new ArrayList<>());
+		model.addAttribute("torneo", torneo);
+		model.addAttribute("squadre", squadraService.findAll());
 		return "tornei/form";
 	}
 
 	@PostMapping("/tornei")  //mi salva i dati presi dalla form
-	public String save(@Valid @ModelAttribute("torneo") Torneo torneo, BindingResult bindingResult) {
-		
-			if(bindingResult.hasErrors()) {  //riscontra i singoli errori della form
-	              return "tornei/form";
+	public String save(@Valid @ModelAttribute("torneo") Torneo torneo, 
+			 BindingResult bindingResult, Model model,
+		        @RequestParam(required = false) String action,
+		        @RequestParam(required = false) Long nuovaSquadraId,
+		        @RequestParam(required = false) List<Long> squadreIds) {
+
+		    // Ricostruisce la lista squadre dagli hidden input
+		    List<Squadra> squadre = new ArrayList<>();
+		    if (squadreIds != null) {
+		        for (Long id : squadreIds) {
+		            Optional<Squadra> optional = squadraService.findById(id);
+		            if (optional.isPresent()) {
+		                squadre.add(optional.get());
+		            }
+		        }
+		    }
+		    torneo.setSquadre(squadre);
+		    if ("addSquadra".equals(action)) {
+		        if (nuovaSquadraId != null && nuovaSquadraId > 0) {
+		            Optional<Squadra> squadra = squadraService.findById(nuovaSquadraId);
+		            if (squadra.isPresent() && !torneo.getSquadre().contains(squadra.get())) {
+		                torneo.getSquadre().add(squadra.get());
+		            }
+		        }
+		        model.addAttribute("squadre", squadraService.findAll());
+		        return "tornei/form";
+		    }
+
+		    if (bindingResult.hasErrors()) {
+		        model.addAttribute("squadre", squadraService.findAll());
+		        return "tornei/form";
+		    }
+
+		    this.torneoService.save(torneo);
+		    return "redirect:/tornei";
+	}
 			}
-			else {
-				this.torneoService.save(torneo);
-			return "redirect:/tornei";
-		
-	}
-	
-	}
-}
+

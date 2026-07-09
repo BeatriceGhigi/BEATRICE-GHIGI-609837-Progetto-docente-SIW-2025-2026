@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.TorneiCalcio.model.Partita;
+import it.uniroma3.siw.TorneiCalcio.model.Squadra;
 import it.uniroma3.siw.TorneiCalcio.repository.PartitaRepository;
 
 
@@ -31,4 +32,9 @@ public class PartitaService {
 	public Partita findeById(Long id) {
 		return this.partitaRepository.findById(id).get();	
 	}
+	
+	@Transactional(readOnly=true)
+	public List<Partita> findBySquadra(Squadra squadra) {
+        return partitaRepository.findBySquadraCasaOrSquadraOspite(squadra, squadra);
+    }
 }

@@ -6,13 +6,13 @@
 </head>
 
 <body>
-	<h1> Aggiungi torneo</h1>
+	<h1>Aggiungi torneo</h1>
 	<form th:action="@{/tornei}" method="POST" th:object="${torneo}">
 		<div th:if="${#fields.hasGlobalErrors()}">
-			  <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"> </p> 
-			  </div>
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+		</div>
 		<div>
-			Nome: <input type="text" th:field="*{nome}"/>
+			Nome: <input type="text" th:field="*{nome}" />
 			<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
 		</div>
 		<div>
@@ -22,14 +22,38 @@
 		<div>
 			Descrizione: <input type="text" th:field="*{descrizione}" />
 		</div>
+		
+		
 		<div>
-			
-		<div>
-			<button type="submit" >Conferma</button>
+			<h1>Scegli squadra</h1>
+
+			<!-- Mantiene le squadre già aggiunte tra un submit e l'altro -->
+			<th:block th:each="squadra : *{squadre}">
+				<input type="hidden" name="squadreIds" th:value="${squadra.id}" />
+			</th:block>
+
+			<select name="nuovaSquadraId">
+				<option value="">-- Seleziona una squadra --</option>
+				<option th:each="squadra : ${squadre}" th:value="${squadra.id}" th:text="${squadra.nome}"></option>
+			</select>
+			<button type="submit" name="action" value="addSquadra">Aggiungi</button>
 		</div>
 
+		<div th:if="${not #lists.isEmpty(torneo.squadre)}">
+			<h3>Squadre selezionate:</h3>
+			<ul>
+				<li th:each="squadra : *{squadre}" th:text="${squadra.nome}">Nome squadra</li>
+			</ul>
+		</div>
+		<div th:if="${#lists.isEmpty(torneo.squadre)}">
+			<span>Nessuna squadra selezionata</span>
+		</div>
+
+		<div>
+			<button type="submit" name="action" value="save">Conferma</button>
+		</div>
 	</form>
-	
+
 </body>
 
 </html>

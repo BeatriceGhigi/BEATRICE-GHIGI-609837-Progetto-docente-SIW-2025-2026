@@ -13,6 +13,15 @@
 	 <div>
 		 Descrizione: <span th:text="${torneo.descrizione}"> Descrizione</span>
 	</div>
+	<h2>Squadre partecipanti</h2>
+			    <ul th:if="${not #lists.isEmpty(torneo.squadre)}">
+			        <li th:each="squadra : ${torneo.squadre}" th:text="${squadra.nome}">Nome squadra</li>
+			    </ul>
+			    <p th:if="${#lists.isEmpty(torneo.squadre)}">Nessuna squadra iscritta a questo torneo.</p>
+
+			    <a th:href="@{/tornei}">Torna alla lista tornei</a>
+				
+				
 </body>
 
 </html>

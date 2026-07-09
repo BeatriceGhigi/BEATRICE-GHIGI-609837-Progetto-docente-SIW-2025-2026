@@ -21,7 +21,31 @@
 			Anno di Fondazione: <input type="text" th:field="${squadra.annoFondazione}" />
 		</div>
 		<div>
-			<button type="submit"> conferma </button>
+					<h1>Scegli giocatore</h1>
+
+					<!-- Mantiene i giocatore già aggiunti tra un submit e l'altro -->
+					<th:block th:each="giocatore : *{gioactori}">
+						<input type="hidden" name="giocatoriIds" th:value="${giocatore.id}" />
+					</th:block>
+
+					<select name="nuovoGiocatoreId">
+						<option value="">-- Seleziona un giocatore --</option>
+						<option th:each="giocatore : ${giocatori}" th:value="${giocatore.id}" th:text="${giocatore.nome}"></option>
+					</select>
+					<button type="submit" name="action" value="addGiocatore">Aggiungi</button>
+				</div>
+
+				<div th:if="${not #lists.isEmpty(squadra.giocatori)}">
+					<h3>Giocatori selezionati:</h3>
+					<ul>
+						<li th:each="giocatore : *{giocatori}" th:text="${giocatore.nome}">Nome giocatore</li>
+					</ul>
+				</div>
+				<div th:if="${#lists.isEmpty(squadra.giocatori)}">
+					<span>Nessun giocatore selezionato</span>
+				</div>
+		<div>
+			<button type="submit" name="action" value="save">Conferma</button>
 		</div>
 
 	</form>

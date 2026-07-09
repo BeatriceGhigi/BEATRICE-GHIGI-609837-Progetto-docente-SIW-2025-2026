@@ -1,11 +1,13 @@
 package it.uniroma3.siw.TorneiCalcio.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.TorneiCalcio.model.Giocatore;
+
 import it.uniroma3.siw.TorneiCalcio.repository.GiocatoreRepository;
 
 
@@ -27,8 +29,14 @@ public class GiocatoreService {
 	}
 	
 	@Transactional(readOnly=true)
-	public Giocatore findById(Long id) {
-		return this.giocatoreRepository.findById(id).get();	
+	public Optional<Giocatore> findById(Long id) {
+		return this.giocatoreRepository.findById(id);	
+	}
+	
+	@Transactional
+	public void save(Giocatore giocatore) {  //mi serve per poter salvare i dati presi dall form
+		this.giocatoreRepository.save(giocatore);  // associato al metodo save in controller
+		
 	}
 	
 }
