@@ -53,15 +53,15 @@ public class SquadraController {
 		return "squadre/list";
 	}
 	
-	@GetMapping("/squadre/new") // metodo che ritorna la form
+	@GetMapping("/admin/squadre/new") // metodo che ritorna la form
 	public String createForm(Model model) {
 		Squadra squadra = new Squadra();
 		model.addAttribute("squadra", squadra);
 		model.addAttribute("giocatori", giocatoreService.findAll());
-		return "squadre/form";
+		return "admin/squadre/form";
 	}
 
-	@PostMapping("/squadre")  //mi salva i dati presi dalla form
+	@PostMapping("/admin/squadre")  //mi salva i dati presi dalla form
 	public String save(@Valid @ModelAttribute("squadra") Squadra squadra, 
 			BindingResult bindingResult, Model model,
 	        @RequestParam(required = false) String action,
@@ -79,7 +79,7 @@ public class SquadraController {
 	        }
 	    }
 	    squadra.setGiocatori(giocatori);
-	    if ("addSquadra".equals(action)) {
+	    if ("addGiocatore".equals(action)) {
 	        if (nuovoGiocatoreId != null && nuovoGiocatoreId > 0) {
 	            Optional<Giocatore> giocatore = giocatoreService.findById(nuovoGiocatoreId);
 	            if (giocatore.isPresent() && !squadra.getGiocatori().contains(giocatore.get())) {
@@ -87,23 +87,35 @@ public class SquadraController {
 	            }
 	        }
 	        model.addAttribute("giocatori", giocatoreService.findAll());
-	        return "squadre/form";
+	        return "admin/squadre/form";
 	    }
 
 	    if (bindingResult.hasErrors()) {
-	        model.addAttribute("gicatori", giocatoreService.findAll());
-	        return "squadre/form";
+	        model.addAttribute("giocatori", giocatoreService.findAll());
+	        return "admin/squadre/form";
 	    }
 
 	    this.squadraService.save(squadra);
 	    return "redirect:/squadre";
 }
 		
-		@PostMapping("/squadre/{id}/delete")
+		@PostMapping("/admin/squadre/{id}/delete")
 		public String delete(@PathVariable Long id) {
 			squadraService.deleteById(id);
 			return "redirect:/squadre";
 		}
-	
+		
+		@GetMapping("/admin/squadre/{id}/edit")
+	    public String editForm(@PathVariable Long id, Model model) {
+	        Optional<Squadra> optional = squadraService.findById(id);
+	        if (optional.isEmpty()) {
+	            return "redirect:/squadre";
+	        }
+	        Squadra squadra = optional.get();
+	        if (squadra.getGiocatori() == null) squadra.setGiocatori(new ArrayList<>());
+	        model.addAttribute("squadra", squadra);
+	        model.addAttribute("giocatori", giocatoreService.findAll());
+	        return "admin/squadre/form";
+	    }
 	}
 

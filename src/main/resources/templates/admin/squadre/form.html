@@ -6,7 +6,7 @@
 </head>
 
 <body>
-	<form method="POST" th:action="@{/squadre}" th:object="${squadra}">
+	<form method="POST" th:action="@{/admin/squadre}" th:object="${squadra}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			  <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"> </p> 
 			  </div>

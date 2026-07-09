@@ -11,9 +11,11 @@
 <body>
 	<h1>Lista tornei </h1>
 	<div>
+		
 		<ul>
 			<li th:each="torneo : ${tornei}">
 				<a th:href="@{'/tornei/'+ ${torneo.id}}" th:text="${torneo.nome}">Nome </a>
+			-----<a th:href="@{/admin/tornei/{id}/edit(id=${torneo.id})}">Modifica </a>
 
 			</li>
 		</ul>
