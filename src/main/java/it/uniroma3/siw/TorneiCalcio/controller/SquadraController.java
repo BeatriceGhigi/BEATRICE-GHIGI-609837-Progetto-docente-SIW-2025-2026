@@ -54,8 +54,10 @@ public class SquadraController {
 	}
 	
 	@GetMapping("/squadre/new") // metodo che ritorna la form
-	public String form(Model model) {
-		model.addAttribute("squadra", new Squadra());
+	public String createForm(Model model) {
+		Squadra squadra = new Squadra();
+		model.addAttribute("squadra", squadra);
+		model.addAttribute("giocatori", giocatoreService.findAll());
 		return "squadre/form";
 	}
 
@@ -97,7 +99,11 @@ public class SquadraController {
 	    return "redirect:/squadre";
 }
 		
-			
+		@PostMapping("/squadre/{id}/delete")
+		public String delete(@PathVariable Long id) {
+			squadraService.deleteById(id);
+			return "redirect:/squadre";
+		}
 	
 	}
 

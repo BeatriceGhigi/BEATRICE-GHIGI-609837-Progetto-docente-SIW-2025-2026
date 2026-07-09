@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+
+		Partite
+	</title>
+</head>
+
+<body>
+	<h1>Lista partite </h1>
+	<div>
+		<ul>
+			<li th:each="partita : ${partite}">
+				<a th:href="@{'/partite/'+ ${partita.id}}" th:text="${partita.squadraCasa.nome} + '-' + ${partita.squadraOspite.nome}" >Partita </a>
+
+			</li>
+		</ul>
+	</div>
+	<a th:href="@{/}">Home</a>
+</body>
+
+
+
+
+
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Partite</title>
+</head>
+
+<body>
+	<h1 th:text="${partita.squadraCasa.nome} + ' - ' + ${partita.squadraOspite.nome}">Nome squadra </h1>
+	<div> Programmazione: <span th:text="${partita.programmazione}"> 10-08-2026</span>
+	</div>
+	 <div>
+		Stato: <span th:text="${partita.stato}"> played </span>
+	</div>
+	<div>
+			Goals: <span th:text="${partita.goalsHome} + '-' + ${partita.goalsAway}"> goal </span>
+		</div>
+		<div>
+					Arbitro: <span th:text="${partita.arbitro} "> arbitro </span>
+				</div>
+				<a th:href="@{/partite}">Torna all'elenco delle partite</a>		
+</body>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Aggiungi giocatore</title>
+</head>
+
+<body>
+
+	<h1>Aggiungi nuovo giocatore</h1>
+
+	<form method="POST" th:action="@{/giocatori}" th:object="${giocatore}">
+
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}" style="color: red;"></p>
+		</div>
+
+		<div>
+			<label>Nome:</label>
+			<input type="text" th:field="*{nome}" />
+			<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+		</div>
+
+		<div>
+			<label>Cognome:</label>
+			<input type="text" th:field="*{cognome}" />
+			<span th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></span>
+		</div>
+
+		<div>
+			<label>Data di nascita:</label>
+			<input type="date" th:field="*{dataDiNascita}" />
+			<span th:if="${#fields.hasErrors('dataDiNascita')}" th:errors="*{dataDiNascita}"></span>
+		</div>
+
+		<div>
+			<label>Altezza:</label>
+			<input type="number" th:field="*{altezza}" />
+		</div>
+
+		<div>
+			<label for="ruolo">Ruolo giocatore:</label>
+			<select id="ruolo" th:field="*{ruolo}">
+				<option value="">-- Seleziona il ruolo --</option>
+				<option th:each="ruoloEnum : ${ruoliDisponibili}" th:value="${ruoloEnum}" th:text="${ruoloEnum}">
+					PORTIERE
+				</option>
+			</select>
+			<span th:if="${#fields.hasErrors('ruolo')}" th:errors="*{ruolo}"></span>
+		</div>
+
+		<div>
+			<label for="squadra">Squadra di appartenenza:</label>
+			<select id="squadra" th:field="*{squadra}">
+				<option value="">-- Seleziona una squadra --</option>
+				<option th:each="s : ${squadre}" th:value="${s.id}" th:text="${s.nome}">Roma</option>
+			</select>
+
+			<span th:if="${#fields.hasErrors('squadra')}" th:errors="*{squadra}"></span>
+		</div>
+
+		<div>
+			<button type="submit" name="action" value="save">Conferma</button>
+		</div>
+
+	</form>
+
+</body>
+
+</html>

@@ -24,13 +24,13 @@
 					<h1>Scegli giocatore</h1>
 
 					<!-- Mantiene i giocatore già aggiunti tra un submit e l'altro -->
-					<th:block th:each="giocatore : *{gioactori}">
+					<th:block th:each="giocatore : *{giocatori}">
 						<input type="hidden" name="giocatoriIds" th:value="${giocatore.id}" />
 					</th:block>
 
 					<select name="nuovoGiocatoreId">
 						<option value="">-- Seleziona un giocatore --</option>
-						<option th:each="giocatore : ${giocatori}" th:value="${giocatore.id}" th:text="${giocatore.nome}"></option>
+						<option th:each="giocatore : ${giocatori}" th:value="${giocatore.id}" th:text="${giocatore.nome}+ ' ' + ${giocatore.cognome}"></option>
 					</select>
 					<button type="submit" name="action" value="addGiocatore">Aggiungi</button>
 				</div>

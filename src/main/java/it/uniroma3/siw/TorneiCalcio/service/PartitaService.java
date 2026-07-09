@@ -1,6 +1,7 @@
 package it.uniroma3.siw.TorneiCalcio.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import it.uniroma3.siw.TorneiCalcio.model.Partita;
 import it.uniroma3.siw.TorneiCalcio.model.Squadra;
 import it.uniroma3.siw.TorneiCalcio.repository.PartitaRepository;
+
 
 
 
@@ -29,12 +31,23 @@ public class PartitaService {
 	}	
 
 	@Transactional(readOnly=true)
-	public Partita findeById(Long id) {
-		return this.partitaRepository.findById(id).get();	
+	public Optional<Partita> findById(Long id) {
+		return this.partitaRepository.findById(id);	
 	}
 	
 	@Transactional(readOnly=true)
 	public List<Partita> findBySquadra(Squadra squadra) {
         return partitaRepository.findBySquadraCasaOrSquadraOspite(squadra, squadra);
     }
+
+	@Transactional
+	public void save(Partita partita) {  //mi serve per poter salvare i dati presi dall form
+		this.partitaRepository.save(partita);  // associato al metodo save in controller
+		
+	}
+	
+	@Transactional
+	public void deleteById(Long id) {
+		partitaRepository.deleteById(id);
+	}
 }

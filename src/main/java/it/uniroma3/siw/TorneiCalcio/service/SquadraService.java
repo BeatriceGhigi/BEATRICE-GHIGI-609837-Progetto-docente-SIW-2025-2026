@@ -35,4 +35,10 @@ public class SquadraService {
 		this.squadraRepository.save(squadra);  // associato al metodo save in controller
 		
 	}
+	
+	@Transactional
+	public void deleteById(Long id) {
+		squadraRepository.deleteById(id);
+	}
+	
 }

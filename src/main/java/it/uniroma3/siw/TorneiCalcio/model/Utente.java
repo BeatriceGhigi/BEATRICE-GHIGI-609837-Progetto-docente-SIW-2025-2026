@@ -14,7 +14,7 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 public class Utente {
 	
-	public static final String USER_ROLE = "USER";
+	public static final String DEFAULT_ROLE = "DEFAULT";
 	public static final String ADMIN_ROLE = "ADMIN";
 	
 	@Id
@@ -29,8 +29,6 @@ public class Utente {
 	@Column(nullable=false)
 	private String password;
 	
-	@NotBlank
-	@Column(nullable=false)
 	private String ruolo;
 	
 	@OneToMany(mappedBy="autore")
@@ -89,8 +87,8 @@ public List<Commento> getCommenti() {
 	}
 	
 	
-	public static String getUserRole() {
-		return USER_ROLE;
+	public static String getDefaultRole() {
+		return DEFAULT_ROLE;
 	}
 
 

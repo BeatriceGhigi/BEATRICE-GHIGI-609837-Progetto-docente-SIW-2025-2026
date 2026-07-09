@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Aggiungi partita</title>
+</head>
+
+<body>
+
+	<h1>Aggiungi Partita</h1>
+
+	<form method="POST" th:action="@{/admin/partite}" th:object="${partita}">
+
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+		</div>
+
+		<div>
+			<label for="squadraCasa">Squadra di casa:</label>
+			<select id="squadraCasa" th:field="*{squadraCasa.id}">
+				<option value="">-- Seleziona una squadra --</option>
+				<option th:each="s : ${squadre}" th:value="${s.id}" th:text="${s.nome}">Roma</option>
+			</select>
+
+			<span th:if="${#fields.hasErrors('squadraCasa')}" th:errors="*{squadraCasa}"></span>
+		</div>
+		<div>
+			<label for="squadraOspite">Squadra ospite:</label>
+			<select id="squadraOspite" th:field="*{squadraOspite.id}">
+				<option value="">-- Seleziona una squadra --</option>
+				<option th:each="s : ${squadre}" th:value="${s.id}" th:text="${s.nome}">Roma</option>
+			</select>
+
+			<span th:if="${#fields.hasErrors('squadraOspite')}" th:errors="*{squadraOspite}"></span>
+		</div>
+
+		<div>
+			<label>Programmazione:</label>
+			<input type="datetime-local" th:field="*{programmazione}" />
+			<span th:if="${#fields.hasErrors('programmazione')}" th:errors="*{programmazione}"></span>
+		</div>
+
+		<div>
+			<label>GoalsHome:</label>
+			<input type="number" th:field="*{goalsHome}" />
+			<span th:if="${#fields.hasErrors('goalsHome')}" th:errors="*{goalsHome}"></span>
+		</div>
+
+		<div>
+			<label>GoalsAway:</label>
+			<input type="number" th:field="*{goalsAway}" />
+			<span th:if="${#fields.hasErrors('goalsAway')}" th:errors="*{goalsAway}"></span>
+		</div>
+
+
+		<div>
+			<label for="stato">Stato partita:</label>
+			<select id="stato" th:field="*{stato}">
+				<option value="">-- Seleziona stato --</option>
+				<option th:each="statoEnum : ${statiDisponibili}" th:value="${statoEnum}" th:text="${statoEnum}">
+					played
+				</option>
+			</select>
+			<span th:if="${#fields.hasErrors('stato')}" th:errors="*{stato}"></span>
+		</div>
+
+
+		<div>
+			<button type="submit" name="action" value="save">Conferma</button>
+		</div>
+
+	</form>
+
+</body>
+
+</html>

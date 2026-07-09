@@ -3,6 +3,7 @@ package it.uniroma3.siw.TorneiCalcio.model;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class Squadra {
 	@Column(nullable=false)
 	private Integer annoFondazione;
 	
-	@OneToMany(mappedBy = "squadra")
+	@OneToMany(mappedBy = "squadra", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Giocatore> giocatori;
 	
 	@ManyToMany(mappedBy = "squadre") 
