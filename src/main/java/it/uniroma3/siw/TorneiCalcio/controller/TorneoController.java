@@ -50,6 +50,13 @@ public class TorneoController {
 		return "tornei/list";
 	}
 	
+	@GetMapping("/admin/tornei")  /*questo metodo deve prendere tutti iflm e passarli al template */
+	public String adminList(Model model) {
+		List<Torneo> torneoList= this.torneoService.findAll();
+		model.addAttribute("tornei",torneoList);
+		return "admin/tornei/list-admin";
+	}
+	
 	@GetMapping("/admin/tornei/new") // metodo che ritorna la form
 	public String createForm(Model model) {
 		Torneo torneo= new Torneo();
@@ -100,7 +107,7 @@ public class TorneoController {
     public String editForm(@PathVariable Long id, Model model) {
         Optional<Torneo> optional = torneoService.findById(id);
         if (optional.isEmpty()) {
-            return "redirect:/tornei";
+            return "redirect:/admin/tornei";
         }
         Torneo torneo = optional.get();
         if (torneo.getSquadre() == null) torneo.setSquadre(new ArrayList<>());

@@ -12,7 +12,8 @@
 		<div>
 			<ul>
 				<li th:each="giocatore: ${giocatori}">
-					<a th:href="@{'/giocatori/'+ ${giocatore.id}}" th:text="${giocatore.nome} + '' + ${giocatore.cognome}"> Nome</a>
+					<a th:href="@{'/admin/giocatori/'+ ${giocatore.id}}" th:text="${giocatore.nome} + '' + ${giocatore.cognome}"> Nome</a>
+					-------<a th:href="@{/admin/giocatori/{id}/edit(id=${giocatore.id})}">Modifica</a>
 				</li>
 			</ul>
 		</div>

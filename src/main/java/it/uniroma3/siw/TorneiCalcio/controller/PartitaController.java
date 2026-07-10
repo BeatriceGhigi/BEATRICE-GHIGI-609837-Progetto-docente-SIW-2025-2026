@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
 import it.uniroma3.siw.TorneiCalcio.model.Partita;
 
 import it.uniroma3.siw.TorneiCalcio.service.PartitaService;
@@ -49,6 +48,13 @@ public class PartitaController {
 		return "partite/list";
 	}
 	
+	@GetMapping("/admin/partite")  /*questo metodo deve prendere tutti iflm e passarli al template */
+	public String adminList(Model model) {
+		List<Partita> partitaList= this.partitaService.findAll();
+		model.addAttribute("partite",partitaList);
+		return "admin/partite/list-admin";
+	}
+	
 
 	@GetMapping("/admin/partite/new") // metodo che ritorna la form
 	public String createForm(Model model) {
@@ -77,6 +83,19 @@ public class PartitaController {
 	@PostMapping("/admin/partite/{id}/delete")
 	public String delete(@PathVariable Long id) {
 		partitaService.deleteById(id);
-		return "redirect:/partite";
+		return "redirect:/admin/partite";
 	}
+	
+	@GetMapping("/admin/partite/{id}/edit")
+    public String editForm(@PathVariable Long id, Model model) {
+        Optional<Partita> optional = partitaService.findById(id);
+        if (optional.isEmpty()) {
+            return "redirect:/partite";
+        }
+        Partita partita = optional.get();
+        model.addAttribute("partita", partita);
+		model.addAttribute("statiDisponibili", Partita.StatusPartita.values()); 
+		model.addAttribute("squadre", squadraService.findAll());          
+		return "admin/partite/form";
+    }
 }

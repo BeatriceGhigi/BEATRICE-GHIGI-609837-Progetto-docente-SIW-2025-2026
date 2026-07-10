@@ -11,6 +11,7 @@
 	<h1>Aggiungi Partita</h1>
 
 	<form method="POST" th:action="@{/admin/partite}" th:object="${partita}">
+		<input type="hidden" th:field="*{id}" />
 
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
@@ -18,7 +19,7 @@
 
 		<div>
 			<label for="squadraCasa">Squadra di casa:</label>
-			<select id="squadraCasa" th:field="*{squadraCasa.id}">
+			<select id="squadraCasa" th:field="*{squadraCasa}">
 				<option value="">-- Seleziona una squadra --</option>
 				<option th:each="s : ${squadre}" th:value="${s.id}" th:text="${s.nome}">Roma</option>
 			</select>
@@ -27,7 +28,7 @@
 		</div>
 		<div>
 			<label for="squadraOspite">Squadra ospite:</label>
-			<select id="squadraOspite" th:field="*{squadraOspite.id}">
+			<select id="squadraOspite" th:field="*{squadraOspite}">
 				<option value="">-- Seleziona una squadra --</option>
 				<option th:each="s : ${squadre}" th:value="${s.id}" th:text="${s.nome}">Roma</option>
 			</select>
@@ -36,8 +37,11 @@
 		</div>
 
 		<div>
-			<label>Programmazione:</label>
-			<input type="datetime-local" th:field="*{programmazione}" />
+			<label for="programmazione">Programmazione:</label>
+						<input type="datetime-local" 
+						       id="programmazione" 
+						       name="programmazione" 
+						       th:value="${partita.programmazione != null} ? ${#temporals.format(partita.programmazione, 'yyyy-MM-dd''T''HH:mm')} : ''" />
 			<span th:if="${#fields.hasErrors('programmazione')}" th:errors="*{programmazione}"></span>
 		</div>
 
@@ -69,7 +73,13 @@
 		<div>
 			<button type="submit" name="action" value="save">Conferma</button>
 		</div>
-
+		<button th:if="${partita.id != null}" 
+					        type="submit" 
+					        th:formaction="@{/admin/partite/{id}/delete(id=${partita.id})}"
+					        onclick="return confirm('Sei sicuro di voler eliminare questa partita?');">
+							Elimina Partita
+										</button>
+									</div>
 	</form>
 
 </body>

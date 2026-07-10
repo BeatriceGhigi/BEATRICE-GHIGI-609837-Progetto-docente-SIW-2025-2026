@@ -53,6 +53,13 @@ public class SquadraController {
 		return "squadre/list";
 	}
 	
+	@GetMapping("/admin/squadre")  /*questo metodo deve prendere tutti iflm e passarli al template */
+	public String adminList(Model model) {
+		List<Squadra> squadraList= this.squadraService.findAll();
+		model.addAttribute("squadre",squadraList);
+		return "admin/squadre/list-admin";
+	}
+	
 	@GetMapping("/admin/squadre/new") // metodo che ritorna la form
 	public String createForm(Model model) {
 		Squadra squadra = new Squadra();
@@ -61,14 +68,14 @@ public class SquadraController {
 		return "admin/squadre/form";
 	}
 
-	@PostMapping("/admin/squadre")  //mi salva i dati presi dalla form
+	@PostMapping("/admin/squadre")  // Salva i dati presi dalla form
 	public String save(@Valid @ModelAttribute("squadra") Squadra squadra, 
 			BindingResult bindingResult, Model model,
 	        @RequestParam(required = false) String action,
 	        @RequestParam(required = false) Long nuovoGiocatoreId,
 	        @RequestParam(required = false) List<Long> giocatoriIds) {
 
-	    // Ricostruisce la lista squadre dagli hidden input
+	    // 1. Ricostruisce la lista giocatori dagli hidden input del form
 	    List<Giocatore> giocatori = new ArrayList<>();
 	    if (giocatoriIds != null) {
 	        for (Long id : giocatoriIds) {
@@ -79,6 +86,8 @@ public class SquadraController {
 	        }
 	    }
 	    squadra.setGiocatori(giocatori);
+
+	    // Gestione dell'aggiunta dinamica di un giocatore nella form
 	    if ("addGiocatore".equals(action)) {
 	        if (nuovoGiocatoreId != null && nuovoGiocatoreId > 0) {
 	            Optional<Giocatore> giocatore = giocatoreService.findById(nuovoGiocatoreId);
@@ -95,9 +104,19 @@ public class SquadraController {
 	        return "admin/squadre/form";
 	    }
 
-	    this.squadraService.save(squadra);
-	    return "redirect:/squadre";
-}
+	    // 2. FONDAMENTALE: Salva prima la squadra per generare l'ID se fosse nuova
+	    Squadra squadraSalvata = this.squadraService.save(squadra);
+
+	    // 3. FONDAMENTALE: Aggiorna il legame sul database per ciascun giocatore
+	    if (squadraSalvata.getGiocatori() != null) {
+	        for (Giocatore g : squadraSalvata.getGiocatori()) {
+	            g.setSquadra(squadraSalvata); // Dice al giocatore a quale squadra appartiene
+	            this.giocatoreService.save(g); // Salva il giocatore aggiornando la foreign key 'squadra_id'
+	        }
+	    }
+
+	    return "redirect:/admin/squadre"; // Ti riporta alla lista di controllo admin
+	}
 		
 		@PostMapping("/admin/squadre/{id}/delete")
 		public String delete(@PathVariable Long id) {

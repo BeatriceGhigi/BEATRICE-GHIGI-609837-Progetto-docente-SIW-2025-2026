@@ -15,7 +15,8 @@
 	<div>
 		Ruolo: <span th:text="${giocatore.ruolo}"> ruolo </span>
 	</div>
-	<a th:href="@{/squadre/{id}(id=${giocatore.squadra.id})}">Torna alla squadra</a>
+	Squadra: <a th:href="@{/squadre/{id}(id=${giocatore.squadra.id})}">Torna alla squadra</a>
+	<a th:href="@{/admin/giocatori}">Torna alla lista giocatori</a>
 </body>
 
 </html>

@@ -34,8 +34,8 @@ public class GiocatoreService {
 	}
 	
 	@Transactional
-	public void save(Giocatore giocatore) {  //mi serve per poter salvare i dati presi dall form
-		this.giocatoreRepository.save(giocatore);  // associato al metodo save in controller
+	public Giocatore save(Giocatore giocatore) {  //mi serve per poter salvare i dati presi dall form
+	return 	this.giocatoreRepository.save(giocatore);  // associato al metodo save in controller
 		
 	}
 	

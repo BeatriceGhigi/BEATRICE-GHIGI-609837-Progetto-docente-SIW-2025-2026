@@ -11,6 +11,7 @@
 	<h1>Aggiungi nuovo giocatore</h1>
 
 	<form method="POST" th:action="@{/admin/giocatori}" th:object="${giocatore}">
+		<input type="hidden" th:field="*{id}" />
 
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}" style="color: red;"></p>
@@ -29,9 +30,12 @@
 		</div>
 
 		<div>
-			<label>Data di nascita:</label>
-			<input type="date" th:field="*{dataDiNascita}" />
-			<span th:if="${#fields.hasErrors('dataDiNascita')}" th:errors="*{dataDiNascita}"></span>
+		    <label for="dataDiNascita">Data di Nascita:</label>
+		    <input type="date" 
+		           id="dataDiNascita" 
+		           name="dataDiNascita" 
+		           th:value="${giocatore.dataDiNascita != null} ? ${#temporals.format(giocatore.dataDiNascita, 'yyyy-MM-dd')} : ''" />
+		    <span th:if="${#fields.hasErrors('dataDiNascita')}" th:errors="*{dataDiNascita}" style="color: red;"></span>
 		</div>
 
 		<div>
@@ -51,15 +55,16 @@
 		</div>
 
 		<div>
-			<label for="squadra">Squadra di appartenenza:</label>
-			<select id="squadra" th:field="*{squadra}">
-				<option value="">-- Seleziona una squadra --</option>
-				<option th:each="s : ${squadre}" th:value="${s.id}" th:text="${s.nome}">Roma</option>
-			</select>
-
-			<span th:if="${#fields.hasErrors('squadra')}" th:errors="*{squadra}"></span>
+		    <label for="squadra">Squadra di appartenenza:</label>
+		    <select id="squadra" th:field="*{squadra.id}">
+		        <option value="">-- Nessuna Squadra  --</option>
+		        <option th:each="s : ${squadre}" 
+		                th:value="${s.id}" 
+		                th:text="${s.nome}">
+		            Nome Squadra
+		        </option>
+		    </select>
 		</div>
-
 		<div>
 			<button type="submit" name="action" value="save">Conferma</button>
 		</div>

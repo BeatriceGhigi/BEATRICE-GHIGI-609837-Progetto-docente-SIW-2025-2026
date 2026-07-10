@@ -7,6 +7,7 @@
 
 <body>
 	<form method="POST" th:action="@{/admin/squadre}" th:object="${squadra}">
+		<input type="hidden" th:field="*{id}" />
 		<div th:if="${#fields.hasGlobalErrors()}">
 			  <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"> </p> 
 			  </div>
@@ -46,6 +47,13 @@
 				</div>
 		<div>
 			<button type="submit" name="action" value="save">Conferma</button>
+			<button th:if="${squadra.id != null}" 
+								        type="submit" 
+								        th:formaction="@{/admin/squadre/{id}/delete(id=${squadra.id})}"
+								        onclick="return confirm('Sei sicuro di voler eliminare questa squadra?');">
+										Elimina Squadra
+													</button>
+												</div>
 		</div>
 
 	</form>
