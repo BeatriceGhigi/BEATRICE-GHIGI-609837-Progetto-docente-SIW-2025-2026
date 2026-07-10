@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+ 
+
+<head>
+	    <title>Commenti</title>
+</head>
+
+<body>
+	<h1 th:text="${commento.titolo}">Titolo commento</h1>
+	<div> Autore: <span th:text="${commento.autore}"> autore </span>
+	</div>
+	 <div>
+		 Descrizione: <span th:text="${commento.descrizione}"> Descrizione</span>
+	</div>
+	
+			    <a th:href="@{/commenti}">Torna ai commenti</a>
+				
+				
+</body>
+
+</html>

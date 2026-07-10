@@ -22,13 +22,11 @@
 	</ul>
 	
 	<p th:if="${#lists.isEmpty(squadra.giocatori)}">Nessun giocatore presente.</p>
+
 	<h3>Partite giocate</h3>
 	<ul th:if="${not #lists.isEmpty(partite)}">
 	    <li th:each="partita : ${partite}">
-	       <span th:text="${partita.squadraCasa.nome}"></span>
-	      goalsHome - goalsAway:  <span th:text="${partita.goalsHome} +'-' + ${partita.goalsAway}"> goals </span>
-	       squadra ospite: <span th:text="${partita.squadraOspite.nome}"></span>
-	        stato: <span th:text="${partita.stato}"></span>
+	       <span th:text="${partita.squadraCasa.nome} + ' '+ ${partita.squadraOspite.nome}"></span>
 	    </li>
 	</ul>
 	

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+
+		Commenti
+	</title>
+</head>
+
+<body>
+	<h1>Commenti </h1>
+	<div>
+		
+		<ul>
+			<li th:each="commento : ${commenti}">
+				<a th:href="@{'/commenti/'+ ${commento.id}}" th:text="${commento.titolo}">titolo </a>
+			</li>
+		</ul>
+	</div>
+	<a th:href="@{/}">Home</a>
+</body>
+
+
+
+
+
+</html>

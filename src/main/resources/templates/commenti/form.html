@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Aggiungi Commento alla Partita</title>
+</head>
+<body>
+
+	<h1>Aggiungi commento per: 
+		<span th:text="${partita.squadraCasa.nome} + ' - ' + ${partita.squadraOspite.nome}">Gara</span>
+	</h1>
+	
+	<form th:action="@{/partite/{partitaId}/commenti(partitaId=${partita.id})}" method="POST" th:object="${commento}">
+		<input type="hidden" th:field="*{id}" />
+	
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}" style="color: red;"></p>
+		</div>
+		
+		<div>
+			<label for="titolo">Titolo del commento:</label><br>
+			<input type="text" id="titolo" th:field="*{titolo}" required />
+			<span th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}" style="color: red;"></span>
+		</div>
+		
+		<br>
+		
+		<div>
+			<label for="testo">Il tuo commento:</label><br>
+			<textarea id="testo" th:field="*{testo}" rows="5" cols="50" placeholder="Scrivi qui il tuo pensiero..." required></textarea>
+			<span th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}" style="color: red;"></span>
+		</div>
+		
+		<br>
+		<div>
+			<button type="submit">Conferma e Invia</button>
+			<a th:href="@{/admin/partite/{id}(id=${partita.id})}" style="margin-left: 15px;">Annulla</a>
+		</div>
+	</form>
+
+</body>
+</html>

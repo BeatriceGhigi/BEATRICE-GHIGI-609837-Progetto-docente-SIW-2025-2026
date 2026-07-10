@@ -17,6 +17,26 @@ public class Commento {
 @GeneratedValue(strategy=GenerationType.AUTO)
 private Long id;
 
+public Long getId() {
+	return id;
+}
+
+public void setId(Long id) {
+	this.id = id;
+}
+
+public String getTitolo() {
+	return titolo;
+}
+
+public void setTitolo(String titolo) {
+	this.titolo = titolo;
+}
+
+@NotBlank
+@Column
+private String titolo;
+
 @NotBlank
 @Column(length=2000, nullable=false)
 private String testo;

@@ -42,15 +42,16 @@ public class SecurityConfiguration {
 	    protected SecurityFilterChain configure(final HttpSecurity httpSecurity) throws Exception {
 
 	        httpSecurity.authorizeHttpRequests(authorize -> {
-	            authorize.requestMatchers(HttpMethod.GET, "/", "/index", "/register", "/tornei", "/tornei/**","/partite", "/partite/**", "/squadre" ,"/squadre/**","/giocatori", "/giocatori/**", "/css/**").permitAll();
+	            authorize.requestMatchers(HttpMethod.GET, "/", "/index", "/register", "/tornei", "/tornei/**","/partite", "/partite/**", "/squadre" ,"/squadre/**","/giocatori", "/giocatori/**","/commenti", "/commenti**", "/css/**").permitAll();
 	            authorize.requestMatchers(HttpMethod.POST, "/register", "/login").permitAll();
+	            authorize.requestMatchers("/commenti/**").authenticated();
 	            authorize.requestMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(ADMIN_ROLE);
 	            authorize.requestMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority(ADMIN_ROLE);
 	            authorize.anyRequest().authenticated();
 	        });
 	        httpSecurity.formLogin(form -> {
 	            form.loginPage("/login").permitAll();
-	            form.defaultSuccessUrl("/admin/index", true);
+	            form.defaultSuccessUrl("/", true);
 	            form.failureUrl("/login?error=true");
 	        });
 

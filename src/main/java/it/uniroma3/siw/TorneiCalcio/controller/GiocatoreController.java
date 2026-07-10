@@ -30,14 +30,14 @@ public class GiocatoreController {
 		this.squadraService= squadraService;
 	}
 	
-	@GetMapping("/admin/giocatori/{id}")
+	@GetMapping("/giocatori/{id}")
 	public String show(@PathVariable("id") Long id, Model model) {
 		Optional<Giocatore> giocatore= this.giocatoreService.findById(id);
 		if(giocatore.isEmpty()) {
-			return "redirect:/admin/giocatori";//metto a disposizione del componente che genera l'html, il componente che mette a disposizione l'html puù generare quest'oggetto
+			return "redirect:/giocatori";//metto a disposizione del componente che genera l'html, il componente che mette a disposizione l'html puù generare quest'oggetto
 		}
 	       model.addAttribute("giocatore", giocatore.get());                          //attraverso quetso nome qua
-       return "admin/giocatori/show";
+       return "giocatori/show";
 	}
 	
 	

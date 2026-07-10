@@ -1,5 +1,7 @@
 package it.uniroma3.siw.TorneiCalcio.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +29,13 @@ public class UtenteService {
 	@Transactional
 	public Utente save(Utente utente) {
 		return this.utenteRepository.save(utente);
+	}
+
+
+	public Utente findByUsername(String username) {
+		Optional<Utente> utente = this.utenteRepository.findByUsername(username);
+		// Se trova l'utente lo restituisce, altrimenti ritorna null
+		return utente.orElse(null);
 	}
 
 

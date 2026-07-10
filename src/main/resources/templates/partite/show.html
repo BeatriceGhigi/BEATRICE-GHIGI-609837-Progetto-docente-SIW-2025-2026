@@ -1,22 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-	<title>Partite</title>
+	<meta charset="UTF-8">
+	<title>Dettaglio Partita</title>
 </head>
 
 <body>
-	<h1 th:text="${partita.squadraCasa.nome} + ' - ' + ${partita.squadraOspite.nome}">Nome squadra </h1>
-	<div> Programmazione: <span th:text="${partita.programmazione}"> 10-08-2026</span>
-	</div>
-	 <div>
-		Stato: <span th:text="${partita.stato}"> played </span>
-	</div>
+	<h1 th:text="${partita.squadraCasa.nome} + ' - ' + ${partita.squadraOspite.nome}">Nome squadre</h1>
+	
+	<div> Programmazione: <span th:text="${partita.programmazione}">10-08-2026</span></div>
+	<div> Stato: <span th:text="${partita.stato}">played</span></div>
+	<div> Goals: <span th:text="${partita.goalsHome} + ' - ' + ${partita.goalsAway}">0 - 0</span></div>
+	
 	<div>
-			Goals: <span th:text="${partita.goalsHome} + '-' + ${partita.goalsAway}"> goal </span>
+		Arbitro: <span th:text="${partita.arbitro != null} ? ${partita.arbitro.nome} + ' ' + ${partita.arbitro.cognome} : 'Non ancora assegnato'">arbitro</span>
+	</div>
+	
+	<hr>
+	
+	<h2>Sezione Commenti</h2>
+	<div th:if="${not #lists.isEmpty(partita.commenti)}">
+		<div th:each="c : ${partita.commenti}" style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+			<h4>
+				<span th:text="${c.titolo}">Titolo del Commento</span> 
+				<small style="color: gray; font-weight: normal;"> - scritto da <span th:text="${c.autore.username}">User</span></small>
+			</h4>
+			<p th:text="${c.testo}">Testo del commento...</p>
+			
+			<div sec:authorize="isAuthenticated()" th:if="${c.autore.username == #authentication.name}">
+				<a th:href="@{/commenti/{id}/edit(id=${c.id})}" style="color: blue; font-size: 0.9em;">Modifica il tuo commento</a>
+			</div>
 		</div>
-		<div>
-					Arbitro: <span th:text="${partita.arbitro} "> arbitro </span>
-				</div>
-				<a th:href="@{/partite}">Torna all'elenco delle partite</a>		
+	</div>
+	<div th:if="${#lists.isEmpty(partita.commenti)}">
+		<p><em>Nessun commento presente per questa partita.</em></p>
+	</div>
+
+	<div sec:authorize="isAuthenticated()">
+		<br>
+		<a th:href="@{/partite/{partitaId}/commenti/new(partitaId=${partita.id})}" 
+		   style="background-color: #3498db; color: white; padding: 8px 12px; text-decoration: none; border-radius: 4px; display: inline-block;">
+		   ✍️ Scrivi un commento su questa partita
+		</a>
+	</div>
+
+	<div sec:authorize="isAnonymous()">
+		<p>Vuoi dire la tua? <a th:href="@{/login}">Accedi</a> per inserire un commento.</p>
+	</div>
+	
+	<br><br>
+	<a th:href="@{/partite}">Torna all'elenco delle partite</a>		
 </body>
+</html>
