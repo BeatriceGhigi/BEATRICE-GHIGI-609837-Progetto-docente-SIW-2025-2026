@@ -1,0 +1,25 @@
+body {
+	text-align: center;
+}
+
+h1{
+	color:crimson;
+	font-family:Verdana;
+	font-size: 50px;
+}
+
+h2{
+	color:crimson;
+}
+
+.seconda{
+font-size: 15px;
+}
+
+html{
+	background-color: lightsteelblue;
+}
+
+a{
+	color:navy;
+}
