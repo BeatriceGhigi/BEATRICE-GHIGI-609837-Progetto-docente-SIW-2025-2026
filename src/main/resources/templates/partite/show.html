@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
+<html style="background-color: lightsteelblue;" xmlns:th="http://www.thymeleaf.org" 
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
+	<link rel="stylesheet" href="/css/stile2.css" />
 	<meta charset="UTF-8">
 	<title>Dettaglio Partita</title>
 </head>
@@ -10,20 +11,20 @@
 <body>
 	<h1 th:text="${partita.squadraCasa.nome} + ' - ' + ${partita.squadraOspite.nome}">Nome squadre</h1>
 	
-	<div> Programmazione: <span th:text="${partita.programmazione}">10-08-2026</span></div>
-	<div> Stato: <span th:text="${partita.stato}">played</span></div>
-	<div> Goals: <span th:text="${partita.goalsHome} + ' - ' + ${partita.goalsAway}">0 - 0</span></div>
+	<div style="color: darkslategrey; font-family: monospace; font-size: 15px;"> Programmazione: <span th:text="${partita.programmazione}">10-08-2026</span></div>
+	<div style="color: darkslategrey; font-family: monospace; font-size: 15px;"> Stato: <span th:text="${partita.stato}">played</span></div>
+	<div style="color: darkslategrey; font-family: monospace; font-size: 15px;"> Goals: <span th:text="${partita.goalsHome} + ' - ' + ${partita.goalsAway}">0 - 0</span></div>
 	
-	<div>
+	<div style="color: darkslategrey; font-family: monospace; font-size: 15px;">
 		Arbitro: <span th:text="${partita.arbitro != null} ? ${partita.arbitro.nome} + ' ' + ${partita.arbitro.cognome} : 'Non ancora assegnato'">arbitro</span>
 	</div>
 	
 	<hr>
 	
-	<h2>Sezione Commenti</h2>
+	<h2 style="color: crimson; font-family: monospace;;">Sezione Commenti</h2>
 	<div th:if="${not #lists.isEmpty(partita.commenti)}">
 		<div th:each="c : ${partita.commenti}" style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
-			<h4>
+			<h4 >
 				<span th:text="${c.titolo}">Titolo del Commento</span> 
 				<small style="color: gray; font-weight: normal;"> - scritto da <span th:text="${c.autore.username}">User</span></small>
 			</h4>
@@ -35,7 +36,7 @@
 		</div>
 	</div>
 	<div th:if="${#lists.isEmpty(partita.commenti)}">
-		<p><em>Nessun commento presente per questa partita.</em></p>
+		<p style="color: darkslategrey; font-family: monospace; font-size: 15px;"><em>Nessun commento presente per questa partita.</em></p>
 	</div>
 
 	<div sec:authorize="isAuthenticated()">
@@ -47,10 +48,10 @@
 	</div>
 
 	<div sec:authorize="isAnonymous()">
-		<p>Vuoi dire la tua? <a th:href="@{/login}">Accedi</a> per inserire un commento.</p>
+		<p style="color: darkslategrey; font-family: monospace; font-size: 15px;">Vuoi dire la tua? <a th:href="@{/login}">Accedi</a> per inserire un commento.</p>
 	</div>
 	
 	<br><br>
-	<a th:href="@{/partite}">Torna all'elenco delle partite</a>		
+	<a style="color: red; font-family: monospace;" th:href="@{/partite}">Torna all'elenco delle partite</a>		
 </body>
 </html>

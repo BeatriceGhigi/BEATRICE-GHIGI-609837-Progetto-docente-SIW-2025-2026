@@ -5,10 +5,14 @@ h1{
 }
 
 html{
-	background-color: lightseagreen;
-}
+background-color: lightsteelblue;}
 
 li{
 	font-family: monospace;
-	
+
+}
+
+h2{
+	color:crimson;
+		font-family:Verdana;
 }

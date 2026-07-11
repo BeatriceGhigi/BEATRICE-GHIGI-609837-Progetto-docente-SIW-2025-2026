@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html style="background-color: lightsteelblue;" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+	<link rel="stylesheet" href="/css/stile2.css" />
 	<meta charset="UTF-8">
 	<title>Aggiungi giocatore</title>
 </head>
@@ -14,13 +15,13 @@
 		<input type="hidden" th:field="*{id}" />
 
 		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}" style="color: red;"></p>
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}" ></p>
 		</div>
 
 		<div>
 			<label>Nome:</label>
 			<input type="text" th:field="*{nome}" />
-			<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+			<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome} "></span>
 		</div>
 
 		<div>
@@ -35,7 +36,7 @@
 		           id="dataDiNascita" 
 		           name="dataDiNascita" 
 		           th:value="${giocatore.dataDiNascita != null} ? ${#temporals.format(giocatore.dataDiNascita, 'yyyy-MM-dd')} : ''" />
-		    <span th:if="${#fields.hasErrors('dataDiNascita')}" th:errors="*{dataDiNascita}" style="color: red;"></span>
+		    <span th:if="${#fields.hasErrors('dataDiNascita')}" th:errors="*{dataDiNascita}" ></span>
 		</div>
 
 		<div>

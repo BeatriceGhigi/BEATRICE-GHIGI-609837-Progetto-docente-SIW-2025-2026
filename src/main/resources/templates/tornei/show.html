@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html style="background-color: lightsteelblue;">
  
-
+<link rel="stylesheet" href="/css/stile2.css" />
 <head>
 	    <title>Tornei</title>
 </head>
 
 <body>
 	<h1 th:text="${torneo.nome}">Nome torneo</h1>
-	<div> Anno: <span th:text="${torneo.anno}"> 2000 </span>
+	<div style="color: darkslategray; font-family: monospace; font-size: 15px;" > Anno: <span th:text="${torneo.anno}"> 2000 </span>
 	</div>
-	 <div>
+	 <div style="color: darkslategray; font-family: monospace; font-size: 15px;" >
 		 Descrizione: <span th:text="${torneo.descrizione}"> Descrizione</span>
 	</div>
-	<h2>Squadre partecipanti</h2>
+	<h2 style="color: crimson; font-family:Verdana">Squadre partecipanti</h2>
 			    <ul th:if="${not #lists.isEmpty(torneo.squadre)}">
-			        <li th:each="squadra : ${torneo.squadre}" th:text="${squadra.nome}">Nome squadra</li>
+			        <li  style="color: darkslategray; font-size: 15px;" th:each="squadra : ${torneo.squadre}" th:text="${squadra.nome}">Nome squadra</li>
 			    </ul>
 			    <p th:if="${#lists.isEmpty(torneo.squadre)}">Nessuna squadra iscritta a questo torneo.</p>
 
-			    <a th:href="@{/tornei}">Torna alla lista tornei</a>
+			    <a style="color: red; font-family: monospace;" th:href="@{/tornei}">Torna alla lista tornei</a>
 				
 				
 </body>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html style="background-color: lightsteelblue;">
 
 <head>
+	<link rel="stylesheet" href="/css/stile2.css" />
 	<title>
 
 		Partite
@@ -12,13 +13,13 @@
 	<h1>Lista partite </h1>
 	<div>
 		<ul>
-			<li th:each="partita : ${partite}">
+			<li style="color: darkslategrey; font-family: monospace; font-size: 15px;" th:each="partita : ${partite}">
 				<a th:href="@{'/partite/'+ ${partita.id}}" th:text="${partita.squadraCasa.nome} + '-' + ${partita.squadraOspite.nome}" >Partita </a>
 
 			</li>
 		</ul>
 	</div>
-	<a th:href="@{/}">Home</a>
+	<a style="color: red; font-family: monospace;" th:href="@{/}">Home</a>
 </body>
 
 

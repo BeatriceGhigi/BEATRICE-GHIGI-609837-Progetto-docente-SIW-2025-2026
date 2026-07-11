@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html style="background-color: lightsteelblue">
 
 <head>
+	<link rel="stylesheet" href="/css/stile2.css" />
 	<title>Squadre</title>
 </head>
 
@@ -13,7 +14,7 @@
 		Città: <span th:text="${squadra.città}"> città </span>
 	</div>
 	
-	<h3>Giocatori</h3>
+	<h3 style="color: crimson;">Giocatori</h3>
 	<ul th:if="${not #lists.isEmpty(squadra.giocatori)}">
 		<li th:each="giocatore : ${squadra.giocatori}">
 			<a th:href="@{/giocatori/{id}(id=${giocatore.id})}" th:text="${giocatore.nome}+ ' ' + ${giocatore.cognome}">Nome
@@ -23,7 +24,7 @@
 	
 	<p th:if="${#lists.isEmpty(squadra.giocatori)}">Nessun giocatore presente.</p>
 
-	<h3>Partite giocate</h3>
+	<h3 style="color: crimson">Partite giocate</h3>
 	<ul th:if="${not #lists.isEmpty(partite)}">
 	    <li th:each="partita : ${partite}">
 	       <span th:text="${partita.squadraCasa.nome} + ' '+ ${partita.squadraOspite.nome}"></span>
@@ -33,7 +34,7 @@
 	<p th:if="${#lists.isEmpty(partite)}">Nessuna partita giocata.</p>
 	
 
-	<a th:href="@{/squadre}">Torna alla lista delle squadre</a>
+	<a style="color: red; font-family: monospace;" th:href="@{/squadre}">Torna alla lista delle squadre</a>
 
 </body>
 

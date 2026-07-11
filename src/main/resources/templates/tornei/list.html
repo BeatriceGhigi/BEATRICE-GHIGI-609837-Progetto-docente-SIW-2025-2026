@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
-	<link rel="stylesheet" href="css/stile2.css" />
+<html style="background-color: lightsteelblue">
 <head>
-	
+	<link rel="stylesheet" href="/css/stile2.css" />
+
 	<title>
 
 		Tornei
@@ -15,16 +15,12 @@
 	<div>
 		
 		<ul>
-			<li th:each="torneo : ${tornei}">
+			<li style="color: darkslategray; font-family: monospace; font-size: 15px;" th:each="torneo : ${tornei}">
 				<a th:href="@{'/tornei/'+ ${torneo.id}}" th:text="${torneo.nome}">Nome </a>
 			</li>
 		</ul>
 	</div>
-	<a th:href="@{/}">Home</a>
+	<a style="color: red; font-family: monospace;" th:href="@{/}">Home</a>
 </body>
-
-
-
-
 
 </html>

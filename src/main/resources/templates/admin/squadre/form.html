@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html style="background-color: lightsteelblue;">
 
 <head>
+	<link rel="stylesheet" href="/css/stile2.css" />
 	<title>Inserisci una squadra</title>
 </head>
 
+
 <body>
+	<h1> Inserisci una nuova squadra</h1>
 	<form method="POST" th:action="@{/admin/squadre}" th:object="${squadra}">
 		<input type="hidden" th:field="*{id}" />
 		<div th:if="${#fields.hasGlobalErrors()}">
@@ -22,7 +25,7 @@
 			Anno di Fondazione: <input type="text" th:field="${squadra.annoFondazione}" />
 		</div>
 		<div>
-					<h1>Scegli giocatore</h1>
+					<h2 style="color: crimson; font-family: monospace;">Scegli giocatore</h2>
 
 					<!-- Mantiene i giocatore già aggiunti tra un submit e l'altro -->
 					<th:block th:each="giocatore : *{giocatori}">
