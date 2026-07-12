@@ -19,24 +19,24 @@ public class GiocatoreService {
 	public GiocatoreService(GiocatoreRepository giocatoreRepository) {
 		this.giocatoreRepository = giocatoreRepository;
 	}
-	
+
 	@Transactional(readOnly=true)
 	public List<Giocatore> findAll(){
 
 		List<Giocatore> giocatoreList=(List<Giocatore>) this.giocatoreRepository.findAll();
 		return giocatoreList;
-		
+
 	}
-	
+
 	@Transactional(readOnly=true)
 	public Optional<Giocatore> findById(Long id) {
 		return this.giocatoreRepository.findById(id);	
 	}
-	
+
 	@Transactional
-	public Giocatore save(Giocatore giocatore) {  //mi serve per poter salvare i dati presi dall form
-	return 	this.giocatoreRepository.save(giocatore);  // associato al metodo save in controller
-		
+	public Giocatore save(Giocatore giocatore) {  
+		return 	this.giocatoreRepository.save(giocatore);  
+
 	}
-	
+
 }

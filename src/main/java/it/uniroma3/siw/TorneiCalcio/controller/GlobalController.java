@@ -14,7 +14,7 @@ public class GlobalController {
     public UserDetails getUtente() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         
-        // Verifichiamo esplicitamente che l'utente NON sia un utente anonimo temporaneo
+        
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             Object principal = authentication.getPrincipal();
             if (principal instanceof UserDetails) {

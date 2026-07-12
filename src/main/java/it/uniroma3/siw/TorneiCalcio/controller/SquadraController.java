@@ -32,35 +32,35 @@ public class SquadraController {
 		this.giocatoreService= giocatoreService;
 		this.partitaService= partitaService;
 	}
-	
+
 	@GetMapping("/squadre/{id}")
 	public String show(@PathVariable("id") Long id, Model model) {
-		
+
 		Optional<Squadra> squadra= this.squadraService.findById(id);
 		if(squadra.isEmpty()) {
 			return "redirect:/squadre";
 		}
 		model.addAttribute("squadra", squadra.get()); 
-		model.addAttribute("partite", partitaService.findBySquadra(squadra.get()));//metto a disposizione del componente che genera l'html, il componente che mette a disposizione l'html puù generare quest'oggetto
-	    return "squadre/show";               //attraverso quetso nome qua
-        
+		model.addAttribute("partite", partitaService.findBySquadra(squadra.get()));
+		return "squadre/show";              
+
 	}
-	
-	@GetMapping("/squadre")  /*questo metodo deve prendere tutti iflm e passarli al template */
+
+	@GetMapping("/squadre")  
 	public String list(Model model) {
 		List<Squadra> squadraList= this.squadraService.findAll();
 		model.addAttribute("squadre",squadraList);
 		return "squadre/list";
 	}
-	
-	@GetMapping("/admin/squadre")  /*questo metodo deve prendere tutti iflm e passarli al template */
+
+	@GetMapping("/admin/squadre")  
 	public String adminList(Model model) {
 		List<Squadra> squadraList= this.squadraService.findAll();
 		model.addAttribute("squadre",squadraList);
 		return "admin/squadre/list-admin";
 	}
-	
-	@GetMapping("/admin/squadre/new") // metodo che ritorna la form
+
+	@GetMapping("/admin/squadre/new") 
 	public String createForm(Model model) {
 		Squadra squadra = new Squadra();
 		model.addAttribute("squadra", squadra);
@@ -68,73 +68,73 @@ public class SquadraController {
 		return "admin/squadre/form";
 	}
 
-	@PostMapping("/admin/squadre")  // Salva i dati presi dalla form
+	@PostMapping("/admin/squadre")  
 	public String save(@Valid @ModelAttribute("squadra") Squadra squadra, 
 			BindingResult bindingResult, Model model,
-	        @RequestParam(required = false) String action,
-	        @RequestParam(required = false) Long nuovoGiocatoreId,
-	        @RequestParam(required = false) List<Long> giocatoriIds) {
+			@RequestParam(required = false) String action,
+			@RequestParam(required = false) Long nuovoGiocatoreId,
+			@RequestParam(required = false) List<Long> giocatoriIds) {
 
-	    // 1. Ricostruisce la lista giocatori dagli hidden input del form
-	    List<Giocatore> giocatori = new ArrayList<>();
-	    if (giocatoriIds != null) {
-	        for (Long id : giocatoriIds) {
-	            Optional<Giocatore> optional = giocatoreService.findById(id);
-	            if (optional.isPresent()) {
-	                giocatori.add(optional.get());
-	            }
-	        }
-	    }
-	    squadra.setGiocatori(giocatori);
 
-	    // Gestione dell'aggiunta dinamica di un giocatore nella form
-	    if ("addGiocatore".equals(action)) {
-	        if (nuovoGiocatoreId != null && nuovoGiocatoreId > 0) {
-	            Optional<Giocatore> giocatore = giocatoreService.findById(nuovoGiocatoreId);
-	            if (giocatore.isPresent() && !squadra.getGiocatori().contains(giocatore.get())) {
-	                squadra.getGiocatori().add(giocatore.get());
-	            }
-	        }
-	        model.addAttribute("giocatori", giocatoreService.findAll());
-	        return "admin/squadre/form";
-	    }
+		List<Giocatore> giocatori = new ArrayList<>();
+		if (giocatoriIds != null) {
+			for (Long id : giocatoriIds) {
+				Optional<Giocatore> optional = giocatoreService.findById(id);
+				if (optional.isPresent()) {
+					giocatori.add(optional.get());
+				}
+			}
+		}
+		squadra.setGiocatori(giocatori);
 
-	    if (bindingResult.hasErrors()) {
-	        model.addAttribute("giocatori", giocatoreService.findAll());
-	        return "admin/squadre/form";
-	    }
 
-	    // 2. FONDAMENTALE: Salva prima la squadra per generare l'ID se fosse nuova
-	    Squadra squadraSalvata = this.squadraService.save(squadra);
+		if ("addGiocatore".equals(action)) {
+			if (nuovoGiocatoreId != null && nuovoGiocatoreId > 0) {
+				Optional<Giocatore> giocatore = giocatoreService.findById(nuovoGiocatoreId);
+				if (giocatore.isPresent() && !squadra.getGiocatori().contains(giocatore.get())) {
+					squadra.getGiocatori().add(giocatore.get());
+				}
+			}
+			model.addAttribute("giocatori", giocatoreService.findAll());
+			return "admin/squadre/form";
+		}
 
-	    // 3. FONDAMENTALE: Aggiorna il legame sul database per ciascun giocatore
-	    if (squadraSalvata.getGiocatori() != null) {
-	        for (Giocatore g : squadraSalvata.getGiocatori()) {
-	            g.setSquadra(squadraSalvata); // Dice al giocatore a quale squadra appartiene
-	            this.giocatoreService.save(g); // Salva il giocatore aggiornando la foreign key 'squadra_id'
-	        }
-	    }
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("giocatori", giocatoreService.findAll());
+			return "admin/squadre/form";
+		}
 
-	    return "redirect:/admin/squadre"; // Ti riporta alla lista di controllo admin
+
+		Squadra squadraSalvata = this.squadraService.save(squadra);
+
+
+		if (squadraSalvata.getGiocatori() != null) {
+			for (Giocatore g : squadraSalvata.getGiocatori()) {
+				g.setSquadra(squadraSalvata); 
+				this.giocatoreService.save(g); 
+			}
+		}
+
+		return "redirect:/admin/squadre"; 
 	}
-		
-		@PostMapping("/admin/squadre/{id}/delete")
-		public String delete(@PathVariable Long id) {
-			squadraService.deleteById(id);
+
+	@PostMapping("/admin/squadre/{id}/delete")
+	public String delete(@PathVariable Long id) {
+		squadraService.deleteById(id);
+		return "redirect:/squadre";
+	}
+
+	@GetMapping("/admin/squadre/{id}/edit")
+	public String editForm(@PathVariable Long id, Model model) {
+		Optional<Squadra> optional = squadraService.findById(id);
+		if (optional.isEmpty()) {
 			return "redirect:/squadre";
 		}
-		
-		@GetMapping("/admin/squadre/{id}/edit")
-	    public String editForm(@PathVariable Long id, Model model) {
-	        Optional<Squadra> optional = squadraService.findById(id);
-	        if (optional.isEmpty()) {
-	            return "redirect:/squadre";
-	        }
-	        Squadra squadra = optional.get();
-	        if (squadra.getGiocatori() == null) squadra.setGiocatori(new ArrayList<>());
-	        model.addAttribute("squadra", squadra);
-	        model.addAttribute("giocatori", giocatoreService.findAll());
-	        return "admin/squadre/form";
-	    }
+		Squadra squadra = optional.get();
+		if (squadra.getGiocatori() == null) squadra.setGiocatori(new ArrayList<>());
+		model.addAttribute("squadra", squadra);
+		model.addAttribute("giocatori", giocatoreService.findAll());
+		return "admin/squadre/form";
 	}
+}
 

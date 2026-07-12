@@ -32,8 +32,8 @@ public class CommentoService {
 	}
 	
 	@Transactional
-	public void save(Commento commento) {  //mi serve per poter salvare i dati presi dall form
-	 	this.commentoRepository.save(commento);  // associato al metodo save in controller
+	public void save(Commento commento) {  
+	 	this.commentoRepository.save(commento);  
 		
 	}
 	

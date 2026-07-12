@@ -29,35 +29,35 @@ public class TorneoController {
 		this.torneoService = torneoService;
 		this.squadraService= squadraService;
 	}
-	
-	
-	
+
+
+
 	@GetMapping("/tornei/{id}")
 	public String show(@PathVariable("id") Long id, Model model) {
-		
+
 		Optional<Torneo> torneo= this.torneoService.findById(id);
 		if(torneo.isEmpty()) {
-			return "redirect:/tornei";//metto a disposizione del componente che genera l'html, il componente che mette a disposizione l'html puù generare quest'oggetto
+			return "redirect:/tornei";
 		}
-	       model.addAttribute("torneo", torneo.get());                          //attraverso quetso nome qua
-       return "tornei/show";
+		model.addAttribute("torneo", torneo.get());   
+		return "tornei/show";
 	}
-	
-	@GetMapping("/tornei")  /*questo metodo deve prendere tutti iflm e passarli al template */
+
+	@GetMapping("/tornei")  
 	public String list(Model model) {
 		List<Torneo> torneoList= this.torneoService.findAll();
 		model.addAttribute("tornei",torneoList);
 		return "tornei/list";
 	}
-	
-	@GetMapping("/admin/tornei")  /*questo metodo deve prendere tutti iflm e passarli al template */
+
+	@GetMapping("/admin/tornei")  
 	public String adminList(Model model) {
 		List<Torneo> torneoList= this.torneoService.findAll();
 		model.addAttribute("tornei",torneoList);
 		return "admin/tornei/list-admin";
 	}
-	
-	@GetMapping("/admin/tornei/new") // metodo che ritorna la form
+
+	@GetMapping("/admin/tornei/new") 
 	public String createForm(Model model) {
 		Torneo torneo= new Torneo();
 		torneo.setSquadre(new ArrayList<>());
@@ -66,56 +66,56 @@ public class TorneoController {
 		return "admin/tornei/form";
 	}
 
-	@PostMapping("/admin/tornei")  //mi salva i dati presi dalla form
+	@PostMapping("/admin/tornei")  
 	public String save(@Valid @ModelAttribute("torneo") Torneo torneo, 
-			 BindingResult bindingResult, Model model,
-		        @RequestParam(required = false) String action,
-		        @RequestParam(required = false) Long nuovaSquadraId,
-		        @RequestParam(required = false) List<Long> squadreIds) {
+			BindingResult bindingResult, Model model,
+			@RequestParam(required = false) String action,
+			@RequestParam(required = false) Long nuovaSquadraId,
+			@RequestParam(required = false) List<Long> squadreIds) {
 
-		    // Ricostruisce la lista squadre dagli hidden input
-		    List<Squadra> squadre = new ArrayList<>();
-		    if (squadreIds != null) {
-		        for (Long id : squadreIds) {
-		            Optional<Squadra> optional = squadraService.findById(id);
-		            if (optional.isPresent()) {
-		                squadre.add(optional.get());
-		            }
-		        }
-		    }
-		    torneo.setSquadre(squadre);
-		    if ("addSquadra".equals(action)) {
-		        if (nuovaSquadraId != null && nuovaSquadraId > 0) {
-		            Optional<Squadra> squadra = squadraService.findById(nuovaSquadraId);
-		            if (squadra.isPresent() && !torneo.getSquadre().contains(squadra.get())) {
-		                torneo.getSquadre().add(squadra.get());
-		            }
-		        }
-		        model.addAttribute("squadre", squadraService.findAll());
-		        return "admin/tornei/form";
-		    }
 
-		    if (bindingResult.hasErrors()) {
-		        model.addAttribute("squadre", squadraService.findAll());
-		        return "admin/tornei/form";
-		    }
+		List<Squadra> squadre = new ArrayList<>();
+		if (squadreIds != null) {
+			for (Long id : squadreIds) {
+				Optional<Squadra> optional = squadraService.findById(id);
+				if (optional.isPresent()) {
+					squadre.add(optional.get());
+				}
+			}
+		}
+		torneo.setSquadre(squadre);
+		if ("addSquadra".equals(action)) {
+			if (nuovaSquadraId != null && nuovaSquadraId > 0) {
+				Optional<Squadra> squadra = squadraService.findById(nuovaSquadraId);
+				if (squadra.isPresent() && !torneo.getSquadre().contains(squadra.get())) {
+					torneo.getSquadre().add(squadra.get());
+				}
+			}
+			model.addAttribute("squadre", squadraService.findAll());
+			return "admin/tornei/form";
+		}
 
-		    this.torneoService.save(torneo);
-		    return "redirect:/tornei";
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("squadre", squadraService.findAll());
+			return "admin/tornei/form";
+		}
+
+		this.torneoService.save(torneo);
+		return "redirect:/tornei";
 	}
 	@GetMapping("/admin/tornei/{id}/edit")
-    public String editForm(@PathVariable Long id, Model model) {
-        Optional<Torneo> optional = torneoService.findById(id);
-        if (optional.isEmpty()) {
-            return "redirect:/admin/tornei";
-        }
-        Torneo torneo = optional.get();
-        if (torneo.getSquadre() == null) torneo.setSquadre(new ArrayList<>());
-        model.addAttribute("torneo", torneo);
-        model.addAttribute("squadre", squadraService.findAll());
-        return "admin/tornei/form";
-    }
+	public String editForm(@PathVariable Long id, Model model) {
+		Optional<Torneo> optional = torneoService.findById(id);
+		if (optional.isEmpty()) {
+			return "redirect:/admin/tornei";
+		}
+		Torneo torneo = optional.get();
+		if (torneo.getSquadre() == null) torneo.setSquadre(new ArrayList<>());
+		model.addAttribute("torneo", torneo);
+		model.addAttribute("squadre", squadraService.findAll());
+		return "admin/tornei/form";
+	}
 
-	
-			}
+
+}
 

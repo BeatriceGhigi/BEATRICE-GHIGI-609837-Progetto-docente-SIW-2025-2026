@@ -25,7 +25,7 @@ public class ArbitroController {
 		this.arbitroService = arbitroService;
 	}
 	
-	// 1. Mostra i dettagli di un singolo arbitro (Pubblico)
+	// Mostra i dettagli di un singolo arbitro 
 	@GetMapping("/arbitri/{id}")
 	public String show(@PathVariable("id") Long id, Model model) {
 		Optional<Arbitro> arbitro = this.arbitroService.findById(id);
@@ -36,7 +36,7 @@ public class ArbitroController {
 		return "arbitri/show";
 	}
 	
-	// 2. Lista di tutti gli arbitri (Pubblico)
+	//Lista di tutti gli arbitri
 	@GetMapping("/arbitri")
 	public String list(Model model) {
 		List<Arbitro> arbitriList = this.arbitroService.findAll();
@@ -44,7 +44,7 @@ public class ArbitroController {
 		return "arbitri/list";
 	}
 	
-	// 3. Lista degli arbitri per l'Amministratore
+	//Lista degli arbitri per l'Amministratore
 	@GetMapping("/admin/arbitri")
 	public String adminList(Model model) {
 		List<Arbitro> arbitriList = this.arbitroService.findAll();
@@ -53,7 +53,7 @@ public class ArbitroController {
 	}
 	
 
-	// 4. Form di creazione nuovo arbitro (Solo Admin)
+	//Form 
 	@GetMapping("/admin/arbitri/new")
 	public String createForm(Model model) {
 		Arbitro arbitro = new Arbitro();
@@ -61,24 +61,24 @@ public class ArbitroController {
 		return "admin/arbitri/form";
 	}
 	
-	// 5. Salvataggio dell'arbitro (Solo Admin)
+	//Salvataggio dell'arbitro
 	@PostMapping("/admin/arbitri")
 	public String save(@Valid @ModelAttribute("arbitro") Arbitro arbitro, 
 	                   BindingResult bindingResult, 
 	                   Model model) {
 
 		if (bindingResult.hasErrors()) {
-			// Se ci sono errori (es. nome troppo corto o vuoto), ricarica il form
+		
 			return "admin/arbitri/form"; 
 		}
 		
 		this.arbitroService.save(arbitro);
-		return "redirect:/arbitri"; // Scegli tu se reindirizzare alla lista pubblica o admin
+		return "redirect:/arbitri";
 	}
 	
 	
 	
-	// 7. Form di modifica arbitro (Solo Admin)
+	//Form di modifica 
 	@GetMapping("/admin/arbitri/{id}/edit")
 	public String editForm(@PathVariable Long id, Model model) {
 		Optional<Arbitro> optional = this.arbitroService.findById(id);
