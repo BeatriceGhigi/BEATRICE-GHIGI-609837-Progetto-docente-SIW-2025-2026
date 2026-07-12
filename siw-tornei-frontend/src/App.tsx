@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import "./App.css"; // Assicurati che questo file contenga il CSS sopra
+import "./App.css"; 
 import ClassificaTable from "./components/ClassificaTable";
-import { getClassifica, getTornei } from "./services/torneoService";
-import type { ClassificaRiga, TorneoSummary } from "./types";
+import { getClassifica, getTornei } from "./services/TorneoService";
+import type { ClassificaRiga, TorneoSummary } from "./types/types"; 
 
 function App() {
   const [tornei, setTornei] = useState<TorneoSummary[]>([]);
@@ -12,7 +12,6 @@ function App() {
   const [caricamentoClassifica, setCaricamentoClassifica] = useState(false);
   const [errore, setErrore] = useState<string | null>(null);
 
-  // Carica l'elenco dei tornei una sola volta, al mount del componente
   useEffect(() => {
     getTornei()
       .then((dati) => {
@@ -28,7 +27,6 @@ function App() {
       });
   }, []);
 
-  // Ricarica la classifica ogni volta che cambia il torneo selezionato
   useEffect(() => {
     if (torneoSelezionato === null) {
       return;
@@ -60,7 +58,6 @@ function App() {
     <div className="app-container">
       <h1 className="app-title">Classifica del Torneo</h1>
 
-      {/* Card per la selezione */}
       <div className="selection-card">
         <label htmlFor="torneo-select" className="selection-label">
           Scegli un torneo:
@@ -79,10 +76,8 @@ function App() {
         </select>
       </div>
 
-      {/* Messaggio di errore stilizzato */}
       {errore && <p className="error-message">{errore}</p>}
 
-      {/* Area della classifica stilizzata */}
       <div className="classifica-container">
         {caricamentoClassifica ? (
           <p className="loading-message">Aggiornamento della classifica...</p>

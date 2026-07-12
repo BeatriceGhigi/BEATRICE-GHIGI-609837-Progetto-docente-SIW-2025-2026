@@ -1,4 +1,4 @@
-package it.uniroma3.siw.TorneiCalcio.controller;
+package it.uniroma3.siw.TorneiCalcio.Rest;
 
 import java.util.List;
 import org.springframework.web.bind.annotation.CrossOrigin;
