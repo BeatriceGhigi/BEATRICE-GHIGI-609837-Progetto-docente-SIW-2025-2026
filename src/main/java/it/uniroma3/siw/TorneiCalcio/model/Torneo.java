@@ -3,6 +3,8 @@ package it.uniroma3.siw.TorneiCalcio.model;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,6 +41,7 @@ public class Torneo {
 			joinColumns = @JoinColumn(name = "torneo_id"),
 			inverseJoinColumns = @JoinColumn(name = "squadra_id")
 		)
+	@JsonIgnore
 	private List<Squadra> squadre;
 	
 	
