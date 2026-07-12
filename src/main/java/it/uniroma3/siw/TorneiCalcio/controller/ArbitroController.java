@@ -83,7 +83,7 @@ public class ArbitroController {
 	public String editForm(@PathVariable Long id, Model model) {
 		Optional<Arbitro> optional = this.arbitroService.findById(id);
 		if (optional.isEmpty()) {
-			return "redirect:/arbitri";
+			return "redirect:/admin/arbitri";
 		}
 		Arbitro arbitro = optional.get();
 		model.addAttribute("arbitro", arbitro);         

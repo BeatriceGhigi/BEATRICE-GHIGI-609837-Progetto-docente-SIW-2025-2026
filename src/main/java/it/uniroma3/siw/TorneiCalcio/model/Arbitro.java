@@ -27,7 +27,7 @@ public class Arbitro {
 	
 	@NotNull
 	@Column(nullable=false, unique=true)
-	private Integer codiceArbitrale;
+	private String codiceArbitrale;
 
 	
 //COSTRUTTORE
@@ -63,11 +63,11 @@ public class Arbitro {
 		this.cognome = cognome;
 	}
 
-	public Integer getCodiceArbitrale() {
+	public String getCodiceArbitrale() {
 		return codiceArbitrale;
 	}
 
-	public void setCodiceArbitrale(Integer codiceArbitrale) {
+	public void setCodiceArbitrale(String codiceArbitrale) {
 		this.codiceArbitrale = codiceArbitrale;
 	}
 	

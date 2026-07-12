@@ -47,7 +47,7 @@ public class SecurityConfiguration {
 	    	.csrf(csrf -> csrf.disable());
 	    	
 	        httpSecurity.authorizeHttpRequests(authorize -> {
-	            authorize.requestMatchers(HttpMethod.GET, "/", "/index", "/register", "/tornei", "/tornei/**","/partite", "/partite/**", "/squadre" ,"/squadre/**","/giocatori", "/giocatori/**", "/arbitri", "/arbitri**", "/css/**", "/rest/**", "/api/**").permitAll();
+	            authorize.requestMatchers(HttpMethod.GET, "/", "/index", "/register", "/tornei", "/tornei/**","/partite", "/partite/**", "/squadre" ,"/squadre/**","/giocatori", "/giocatori/**", "/arbitri", "/arbitri/**", "/css/**", "/rest/**", "/api/**").permitAll();
 	            authorize.requestMatchers(HttpMethod.POST, "/register", "/login").permitAll();
 	            authorize.requestMatchers("/commenti/**").hasAnyAuthority(DEFAULT_ROLE);
 	            authorize.requestMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(ADMIN_ROLE);

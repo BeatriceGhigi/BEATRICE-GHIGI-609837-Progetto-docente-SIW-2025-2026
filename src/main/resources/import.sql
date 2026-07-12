@@ -39,3 +39,7 @@ insert into torneo_squadra(torneo_id, squadra_id) values(101, 201);
 insert into torneo_squadra(torneo_id, squadra_id) values(101, 251);
 insert into partita(id, programmazione, goals_home, goals_away, stato, squadra_casa_id, squadra_ospite_id, torneo_id, arbitro_id) values(nextval('partita_seq'), '2025-04-05 16:00:00', 1, 1, 'PLAYED', 1, 101, 1, null);
 insert into utente (id, username, password, ruolo) values (5000, 'admin', '$2a$10$RUm5rJJQlRTyBNXW/DzT9u0BnmGZj4mHHUtamRdwG2OvUEMwJuRo2', 'ADMIN');
+insert into arbitro(id, nome, cognome, codice_arbitrale) values(nextval('arbitro_seq'), 'Gianluca', 'Rocchi', 'ARB-001');
+insert into arbitro(id, nome, cognome, codice_arbitrale) values(nextval('arbitro_seq'), 'Daniele', 'Orsato', 'ARB-002');
+insert into arbitro(id, nome, cognome, codice_arbitrale) values(nextval('arbitro_seq'), 'Paolo', 'Valeri', 'ARB-003');
+insert into arbitro(id, nome, cognome, codice_arbitrale) values(nextval('arbitro_seq'), 'Maria Sole', 'Ferrieri Caputi', 'ARB-004');
