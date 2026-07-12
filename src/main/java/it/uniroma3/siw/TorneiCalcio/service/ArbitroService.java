@@ -1,12 +1,14 @@
 package it.uniroma3.siw.TorneiCalcio.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.TorneiCalcio.model.Arbitro;
 import it.uniroma3.siw.TorneiCalcio.repository.ArbitroRepository;
+import jakarta.validation.Valid;
 
 
 @Service
@@ -25,8 +27,13 @@ public class ArbitroService {
 	}
 	
 	@Transactional(readOnly=true)
-	public Arbitro findeById(Long id) {
-		return this.arbitroRepository.findById(id).get();	
+	public Optional <Arbitro> findById(Long id) {
+		return this.arbitroRepository.findById(id);	
+	}
+
+	public void save(@Valid Arbitro arbitro) {
+		this.arbitroRepository.save(arbitro);
+		
 	}
 }
 

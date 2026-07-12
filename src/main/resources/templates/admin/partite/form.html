@@ -70,6 +70,13 @@
 			<span th:if="${#fields.hasErrors('stato')}" th:errors="*{stato}"></span>
 		</div>
 
+		<div>
+					<label for="arbitro">Arbitro:</label>
+					<select id="arbitro" th:field="*{arbitro}">
+						<option value="">-- Seleziona un arbitro --</option>
+						<option th:each="a : ${arbitri}" th:value="${a.id}" th:text="${a.nome + ' ' + a.cognome}">Collina</option>
+					</select>
+					</div>
 
 		<div>
 			<button type="submit" name="action" value="save">Conferma</button>

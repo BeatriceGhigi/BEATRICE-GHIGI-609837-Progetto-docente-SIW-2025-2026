@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html style="background-color: lightsteelblue;">
+
+<head>
+	<link rel="stylesheet" href="/css/stile2.css" />
+	<title>Aggiungi arbitro</title>
+</head>
+
+
+<body>
+	<h1> Aggiungi arbitro</h1>
+	<form method="POST" th:action="@{/admin/arbitri}" th:object="${arbitro}">
+		<input type="hidden" th:field="*{id}" />
+		<div th:if="${#fields.hasGlobalErrors()}">
+			  <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"> </p> 
+			  </div>
+		<div>
+			Nome: <input type="text" th:field="${arbitro.nome}"/>
+			<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+		</div>
+		<div>
+			Cognome: <input type="text" th:field="${arbitro.cognome}" />
+			<span th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></span>
+		</div>
+		<div>
+			Codice arbitrale: <input type="text" th:field="${arbitro.codiceArbitrale}" />
+			<span th:if="${#fields.hasErrors('codiceArbitrale')}" th:errors="*{codiceArbitrale}"></span>
+		</div>
+		
+		<div>
+			<button type="submit" name="action" value="save">Conferma</button>
+			
+		</div>
+
+	</form>
+	
+</body>
+
+</html>

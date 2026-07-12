@@ -1,6 +1,7 @@
 package it.uniroma3.siw.TorneiCalcio.authentication;
 
 import static it.uniroma3.siw.TorneiCalcio.model.Utente.ADMIN_ROLE;
+import static it.uniroma3.siw.TorneiCalcio.model.Utente.DEFAULT_ROLE;
 
 import javax.sql.DataSource;
 
@@ -42,9 +43,9 @@ public class SecurityConfiguration {
 	    protected SecurityFilterChain configure(final HttpSecurity httpSecurity) throws Exception {
 
 	        httpSecurity.authorizeHttpRequests(authorize -> {
-	            authorize.requestMatchers(HttpMethod.GET, "/", "/index", "/register", "/tornei", "/tornei/**","/partite", "/partite/**", "/squadre" ,"/squadre/**","/giocatori", "/giocatori/**","/commenti", "/commenti**", "/css/**").permitAll();
+	            authorize.requestMatchers(HttpMethod.GET, "/", "/index", "/register", "/tornei", "/tornei/**","/partite", "/partite/**", "/squadre" ,"/squadre/**","/giocatori", "/giocatori/**", "/arbitri", "/arbitri**", "/css/**").permitAll();
 	            authorize.requestMatchers(HttpMethod.POST, "/register", "/login").permitAll();
-	            authorize.requestMatchers("/commenti/**").authenticated();
+	            authorize.requestMatchers("/commenti/**").hasAnyAuthority(DEFAULT_ROLE);
 	            authorize.requestMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(ADMIN_ROLE);
 	            authorize.requestMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority(ADMIN_ROLE);
 	            authorize.anyRequest().authenticated();

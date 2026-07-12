@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.TorneiCalcio.model.Partita;
-
+import it.uniroma3.siw.TorneiCalcio.service.ArbitroService;
 import it.uniroma3.siw.TorneiCalcio.service.PartitaService;
 import it.uniroma3.siw.TorneiCalcio.service.SquadraService;
 import jakarta.validation.Valid;
@@ -22,12 +22,14 @@ import jakarta.validation.Valid;
 @Controller
 public class PartitaController {
 
+	private ArbitroService arbitroService;
 	private PartitaService partitaService;
 	private SquadraService squadraService;
 
-	public PartitaController(PartitaService partitaService, SquadraService squadraService) {
+	public PartitaController(PartitaService partitaService, SquadraService squadraService, ArbitroService arbitroService) {
 		this.partitaService = partitaService;
 		this.squadraService= squadraService;
+		this.arbitroService=arbitroService;
 	}
 	
 	@GetMapping("/partite/{id}")
@@ -62,6 +64,7 @@ public class PartitaController {
 		model.addAttribute("statiDisponibili", Partita.StatusPartita.values());
 		model.addAttribute("partita", partita);
 		model.addAttribute("squadre", squadraService.findAll());
+		model.addAttribute("arbitri",this.arbitroService.findAll()); 
 		return "admin/partite/form";
 	}
 	
@@ -95,7 +98,8 @@ public class PartitaController {
         Partita partita = optional.get();
         model.addAttribute("partita", partita);
 		model.addAttribute("statiDisponibili", Partita.StatusPartita.values()); 
-		model.addAttribute("squadre", squadraService.findAll());          
+		model.addAttribute("squadre", squadraService.findAll());    
+		model.addAttribute("arbitri", this.arbitroService.findAll());
 		return "admin/partite/form";
     }
 }

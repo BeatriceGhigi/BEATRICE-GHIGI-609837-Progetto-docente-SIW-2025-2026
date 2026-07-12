@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html style="background-color: lightsteelblue;">
+ 
+<link rel="stylesheet" href="/css/stile2.css" />
+<head>
+	    <title>Arbitri</title>
+</head>
+
+<body>
+	<h1 th:text="${arbitro.nome} + ' ' + ${arbitro.cognome}">Nome arbitro</h1>
+	 <div style="color: darkslategray; font-family: monospace; font-size: 15px;" >
+		 Codice arbitrale: <span th:text="${arbitro.codiceArbitrale}"> codice</span>
+	</div>
+	
+
+			    <a style="color: red; font-family: monospace;" th:href="@{/arbitri}">Torna alla lista degli arbitri</a>
+				
+				
+</body>
+
+</html>

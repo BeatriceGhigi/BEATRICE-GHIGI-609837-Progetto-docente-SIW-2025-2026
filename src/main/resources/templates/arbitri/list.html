@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="/css/stile2.css" />
+	<title>
+
+		Arbitri
+	</title>
+</head>	
+	<body>
+	<h1>Lista arbitri</h1>
+		<div>
+			<ul>
+				<li th:each="arbitro: ${arbitri}">
+					<a th:href="@{'/arbitri/'+ ${arbitro.id}}" th:text="${arbitro.nome} + ' ' + ${arbitro.cognome}"> Nome</a>
+				</li>
+			</ul>
+		</div>
+		<a th:href="@{/}">Home</a>
+	</body>
+</html>
