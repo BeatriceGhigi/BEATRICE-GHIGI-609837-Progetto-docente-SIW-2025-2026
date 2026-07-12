@@ -8,15 +8,15 @@
 
 <body>
 	<h1 th:text="${squadra.nome}">Nome squadra </h1>
-	<div> Anno di fondazione: <span th:text="${squadra.annoFondazione}"> 1800</span>
+	<div style="color: darkslategrey; font-family: monospace; font-size: 15px;"> Anno di fondazione: <span th:text="${squadra.annoFondazione}"> 1800</span>
 	</div>
-	 <div>
+	 <div style="color: darkslategrey; font-family: monospace; font-size: 15px;">
 		Città: <span th:text="${squadra.città}"> città </span>
 	</div>
 	
 	<h3 style="color: crimson;">Giocatori</h3>
 	<ul th:if="${not #lists.isEmpty(squadra.giocatori)}">
-		<li th:each="giocatore : ${squadra.giocatori}">
+		<li style="color: darkslategrey; font-family: monospace; font-size: 15px;" th:each="giocatore : ${squadra.giocatori}">
 			<a th:href="@{/giocatori/{id}(id=${giocatore.id})}" th:text="${giocatore.nome}+ ' ' + ${giocatore.cognome}">Nome
 				Cognome</a>
 		</li>
@@ -26,7 +26,7 @@
 
 	<h3 style="color: crimson">Partite giocate</h3>
 	<ul th:if="${not #lists.isEmpty(partite)}">
-	    <li th:each="partita : ${partite}">
+	    <li style="color: darkslategrey; font-family: monospace; font-size: 15px;" th:each="partita : ${partite}">
 	       <span th:text="${partita.squadraCasa.nome} + ' '+ ${partita.squadraOspite.nome}"></span>
 	    </li>
 	</ul>
