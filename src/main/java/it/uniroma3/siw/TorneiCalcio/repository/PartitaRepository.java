@@ -9,4 +9,6 @@ import it.uniroma3.siw.TorneiCalcio.model.Squadra;
 
 public interface PartitaRepository extends JpaRepository<Partita, Long>{
 	List<Partita> findBySquadraCasaOrSquadraOspite(Squadra squadraCasa, Squadra squadraOspite);
+	
+
 }

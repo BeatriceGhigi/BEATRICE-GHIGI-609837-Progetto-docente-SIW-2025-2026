@@ -14,6 +14,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
 import  jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
@@ -49,12 +50,14 @@ public class Partita {
 	private Arbitro arbitro;
 	
 	@ManyToOne
+
 	private Squadra squadraCasa;
 	
 	@ManyToOne
 	private Squadra squadraOspite;
 	
 	@ManyToOne
+	
 	private Torneo torneo;
 	
 	@OneToMany(mappedBy="partita",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
