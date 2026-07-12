@@ -1,17 +1,17 @@
 :root {
-  /* Palette Chiara Ultra-Vivace, Pop e Neon */
-  --bg: #cffafe;         /* Sfondo del browser: Ciano acceso e luminoso (stile estivo/gaming) */
-  --surface: #ecfeff;    /* Il box dell'app: un azzurro ciano più chiaro, ma super saturo */
-  --text: #083344;       /* Testo delle squadre: Ciano scurissimo (contrasto pazzesco, si legge benissimo!) */
-  --text-h: #0e7490;     /* Titoli: Ciano elettrico */
-  --border: #67e8f9;     /* Bordi e griglie: Ciano Neon accesi */
+
+  --bg: #cffafe;        
+  --surface: #ecfeff;    
+  --text: #083344;       
+  --text-h: #0e7490;     
+  --border: #67e8f9;     
   --code-bg: #bae6fd;
   
-  --accent: #06b6d4;     /* Celeste elettrico per i focus */
-  --accent-bg: rgba(6, 182, 212, 0.15); /* Evidenziatore accesi quando passi il mouse sulle squadre */
+  --accent: #06b6d4;    
+  --accent-bg: rgba(6, 182, 212, 0.15); 
   --accent-border: rgba(6, 182, 212, 0.5);
   
-  --success: #e11d48;    /* Rosa/Fucsia Neon per far esplodere i numeri e i punti! */
+  --success: #e11d48;   
   --shadow: rgba(6, 182, 212, 0.2) 0 10px 15px -3px;
 
   --sans: system-ui, -apple-system, sans-serif;
@@ -31,22 +31,22 @@
   }
 }
 
-/* Rimosso del tutto il blocco @media per la dark mode, così non sballa più nulla */
+
 
 body {
   margin: 0;
   padding: 0 10px;
 }
 
-/* Il contenitore principale della tua applicazione */
+
 #root {
   width: 1126px;
   max-width: 100%;
   margin: 40px auto;
   text-align: left;
   padding: 32px;
-  background: var(--surface) !important; /* Forza lo sfondo azzurro/ciano chiaro dell'app */
-  border: 4px solid var(--border);       /* Bordo spesso e coloratissimo */
+  background: var(--surface) !important; 
+  border: 4px solid var(--border);      
   border-radius: 24px;
   min-height: 90svh;
   display: flex;

@@ -5,8 +5,7 @@ interface ClassificaTableProps {
   righe: ClassificaRiga[];
 }
 
-// Componente "dumb": riceve solo props, non fa fetch, non ha stato proprio.
-// Tutta la logica di caricamento dati sta nel componente padre (App.tsx).
+
 function ClassificaTable({ righe }: ClassificaTableProps) {
   if (righe.length === 0) {
     return <p className="loading-message">Nessuna squadra iscritta a questo torneo.</p>;
